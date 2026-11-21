@@ -1,0 +1,231 @@
+/* Bissig Immobilien · L3 Editorial · H3 Split 5/7 · Bodoni Moda + Jost · Kalkstein, Schiefer, Hausgelb nur winzig */
+@font-face { font-family: "Bodoni Moda"; src: url("fonts/bodoni-moda.woff2") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url("fonts/bodoni-moda-italic.woff2") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("fonts/jost.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+:root {
+  --kalk: #E9E6E0;
+  --papier: #F4F2EE;
+  --schiefer: #2E3134;
+  --schiefer-tief: #232628;
+  --stein: #7C7871;          /* gedämpfter Text auf Kalk: 4.6:1 */
+  --stein-hell: #ABA79F;     /* gedämpfter Text auf Schiefer: 5.6:1 */
+  --gelb: #FBBA00;           /* Hausgelb: Quadrat der Wortmarke, aktiver Ort, Knopf im Finale */
+  --bg: var(--kalk);
+  --fg: var(--schiefer);
+  --akzent: var(--schiefer);
+  --auf-akzent: var(--kalk);
+  --gedaempft: var(--stein);
+  --linie: color-mix(in oklab, var(--schiefer) 18%, var(--kalk));
+  --schrift-titel: "Bodoni Moda", "Bodoni 72", Didot, serif;
+  --schrift-text: "Jost", "Futura", sans-serif;
+  --rand: clamp(1.25rem, 0.6rem + 3vw, 3.5rem);
+  --kopf-h: 5.4rem;
+}
+body { font-weight: 380; letter-spacing: 0.005em; font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem); line-height: 1.55; }
+h1, h2, h3 { font-weight: 420; letter-spacing: -0.015em; text-wrap: balance; font-optical-sizing: auto; }
+em { font-style: italic; }
+a:focus-visible, .knopf:focus-visible { outline: 2px solid var(--gelb); outline-offset: 3px; }
+
+/* ---------- Bausteine angepasst ---------- */
+.anf-senden { background: var(--schiefer); color: var(--kalk); border-radius: 0; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.82rem; }
+.anf-chip { border-radius: 0; }
+.anf-chip[aria-checked="true"] { background: var(--schiefer); color: var(--kalk); }
+.anf-titel { font-size: 0.75rem; letter-spacing: 0.16em; }
+.kontaktleiste .haupt { background: var(--schiefer); color: var(--kalk); }
+
+/* ---------- Knöpfe ---------- */
+.knopf { display: inline-flex; align-items: center; min-height: 52px; padding: 0 1.6rem; text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease); }
+.knopf-voll { background: var(--schiefer); color: var(--kalk); }
+.knopf-voll:hover { background: var(--schiefer-tief); }
+.knopf-linie { box-shadow: inset 0 0 0 1px currentColor; }
+.knopf-linie:hover { background: var(--schiefer); color: var(--kalk); box-shadow: none; }
+.knopf-gelb { background: var(--gelb); color: var(--schiefer-tief); }
+.knopf-gelb:hover { background: var(--kalk); }
+.knopf-hell { box-shadow: inset 0 0 0 1px var(--kalk); color: var(--kalk); }
+.knopf-hell:hover { background: var(--kalk); color: var(--schiefer); }
+
+/* ---------- Kopf: liegt auf Kalkstein, nie über dem Foto ---------- */
+.kopf { position: absolute; z-index: 20; top: 0; left: 0; right: 0; height: var(--kopf-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 var(--rand); }
+.marke { display: inline-flex; align-items: center; gap: 0.55em; text-decoration: none; font-family: var(--schrift-text); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.32em; text-transform: uppercase; }
+.marke i { width: 0.62em; height: 0.62em; background: var(--gelb); display: inline-block; }
+.kopf-nav { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2.2rem); font-size: 0.84rem; letter-spacing: 0.06em; }
+.kopf-nav a { text-decoration: none; position: relative; padding-block: 0.5rem; }
+.kopf-nav a:not(.kopf-cta)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease); }
+.kopf-nav a:hover::after { transform: scaleX(1); }
+.kopf-tel { font-variant-numeric: tabular-nums; }
+.kopf-cta { background: var(--schiefer); color: var(--kalk); padding: 0.75rem 1.1rem !important; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.74rem; font-weight: 500; }
+.kopf-cta:hover { background: var(--schiefer-tief); }
+
+/* ---------- Hero: Split 5/7 ---------- */
+/* Rasterbruch: die erste Titelzeile läuft über die Bildspalte, das Bild beginnt eine Zeile tiefer (beides aus --h1) */
+.hero { --h1: clamp(3rem, 8.75vw, 9.6rem); --hero-oben: calc(var(--kopf-h) + 1.2rem); position: relative; display: grid; grid-template-columns: repeat(12, 1fr); min-height: clamp(640px, 100svh, 62vw); padding-left: var(--rand); }
+.hero-text { grid-column: 1 / span 5; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; padding: var(--hero-oben) 2.5rem clamp(2.6rem, 8vh, 5.2rem) 0; position: relative; z-index: 2; }
+.hero h1 { overflow-wrap: normal; white-space: nowrap; width: max-content; font-size: var(--h1); line-height: 0.92; letter-spacing: -0.035em; }
+.hero h1 em { display: block; font-weight: 400; margin-left: -0.04em; }
+.hero-lead { font-size: var(--t-1); line-height: 1.45; max-width: 27ch; margin-top: auto; padding-top: 2rem; }
+.hero-knoepfe { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.4rem; }
+.hero-bild { grid-column: 6 / -1; margin: 0; padding-top: calc(var(--hero-oben) + var(--h1) * 0.92 + 1.5rem); position: relative; display: flex; flex-direction: column; }
+.hero-rahmen { flex: 1; overflow: hidden; min-height: 40vh; }
+.hero-rahmen picture, .hero-rahmen img { width: 100%; height: 100%; }
+.hero-rahmen picture { transform: scale(1.22); transform-origin: 72% 60%; } /* Bildschnitt: weniger Decke und Wand, Seefenster in die Mitte */
+.hero-rahmen img { object-fit: cover; object-position: 50% 55%; transform-origin: 50% 60%; will-change: transform; }
+figcaption { font-size: 0.8rem; letter-spacing: 0.02em; color: var(--gedaempft); padding-top: 0.8rem; }
+figcaption .nr { font-family: var(--schrift-titel); font-style: italic; margin-right: 0.6em; font-variant-numeric: tabular-nums; }
+.hero-bild figcaption { padding: 0.8rem var(--rand) 1.4rem 0; max-width: calc(100% - 22rem); } /* rechts unten liegt der Entwurf-Hinweis */
+
+/* ---------- Infostreifen ---------- */
+.info { list-style: none; margin: 0; padding: 0 var(--rand); display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); }
+.info li { padding: 1.3rem 1rem 1.4rem 0; display: grid; gap: 0.25rem; }
+.info li + li { padding-left: 1.4rem; border-left: 1px solid var(--linie); }
+.info span { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gedaempft); }
+.info a { text-decoration: none; font-variant-numeric: tabular-nums; }
+.info a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+
+/* ---------- Signatur: Von Flüelen bis Altdorf ---------- */
+.projekte { background: var(--schiefer); color: var(--kalk); --gedaempft: var(--stein-hell); --linie: color-mix(in oklab, var(--kalk) 16%, var(--schiefer)); padding-top: clamp(5rem, 11vw, 10rem); }
+.proj-kopf { padding-inline: var(--rand); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.75rem); align-items: end; margin-bottom: clamp(3rem, 7vw, 6rem); }
+.proj-kopf h2 { grid-column: 1 / span 8; font-size: clamp(2.8rem, 1rem + 6.4vw, 8.8rem); line-height: 0.94; letter-spacing: -0.035em; margin-left: -0.05em; }
+.proj-kopf p { grid-column: 9 / -1; max-width: 30ch; color: var(--stein-hell); padding-bottom: 0.6rem; }
+.proj-buehne { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.75rem); padding-inline: var(--rand); }
+.karte-spalte { grid-column: 1 / span 5; position: relative; }
+/* background/radius/overflow und position der Quelle zurücksetzen: bausteine.css hat gleichnamige Klassen .karte/.karte-quelle */
+.karte { position: sticky; top: 0; height: 100svh; margin: 0; padding: clamp(1rem, 3vh, 2rem) 0; display: flex; flex-direction: column; background: none; border-radius: 0; overflow: visible; }
+.karte-svg { flex: 1; width: 100%; min-height: 0; display: block; background: #2B2E31; }
+.karte-jahr { position: absolute; left: 1.2rem; bottom: calc(clamp(1rem, 3vh, 2rem) + 2.6rem); pointer-events: none; }
+.karte-jahr b { display: block; font-family: var(--schrift-titel); font-weight: 400; font-style: italic; font-size: clamp(3.4rem, 1.6rem + 3.6vw, 6.4rem); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: lining-nums tabular-nums; color: var(--kalk); text-shadow: 0 2px 24px rgba(20, 22, 24, 0.7); }
+.karte-jahr span { display: block; margin-top: 0.5rem; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--kalk); text-shadow: 0 1px 10px rgba(20, 22, 24, 0.9); }
+.karte-quelle { position: static; background: none; border-radius: 0; font-size: 0.7rem; color: var(--stein-hell); padding: 0.6rem 0 0; }
+
+/* Markierungen in der Karte (Masse im Kartenraster 1000 × 1500) */
+.mk { opacity: 0.38; transition: opacity 0.6s var(--ease); }
+.mk text { font-family: var(--schrift-text); font-size: 26px; letter-spacing: 0.04em; fill: var(--kalk); paint-order: stroke; stroke: #26292c; stroke-width: 6px; stroke-linejoin: round; }
+.mk .mk-klein { font-size: 19px; letter-spacing: 0.08em; fill: var(--stein-hell); }
+.mk-ring { fill: none; stroke: var(--kalk); stroke-width: 3; stroke-dasharray: 7 7; }
+.mk-punkt { fill: var(--kalk); stroke: #26292c; stroke-width: 4; }
+.mk-flaeche { fill: color-mix(in oklab, var(--gelb) 0%, transparent); stroke: var(--kalk); stroke-width: 3; stroke-dasharray: 9 7; transition: fill 0.8s var(--ease); }
+.mk-sitz rect { fill: var(--gelb); }
+.mk.aktiv, .mk-immer { opacity: 1; }
+.mk.aktiv .mk-ring, .mk.aktiv .mk-flaeche { stroke: var(--gelb); }
+.mk.aktiv .mk-punkt { fill: var(--gelb); }
+.mk-werkmatt.aktiv .mk-flaeche { fill: color-mix(in oklab, var(--gelb) 28%, transparent); }
+
+/* Stationen rechts */
+.stationen { grid-column: 7 / -1; padding-bottom: clamp(5rem, 10vw, 9rem); }
+.station { min-height: 100svh; padding-block: clamp(3rem, 12vh, 8rem); border-top: 1px solid var(--linie); }
+.station:first-child { border-top: 0; padding-top: 0; }
+.st-jahr { font-family: var(--schrift-titel); font-style: italic; font-size: clamp(2.4rem, 1.4rem + 2.6vw, 4.4rem); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums; color: var(--stein-hell); }
+.station h3 { font-size: var(--t-3); line-height: 1.05; margin-top: 0.6rem; }
+.st-ort { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gedaempft); margin-top: 0.7rem; }
+.st-fakten { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--linie); max-width: 34rem; }
+.st-fakten li { padding: 0.7rem 0; border-bottom: 1px solid var(--linie); }
+.station figure { margin: 0; }
+.st-gross { margin-top: 2.2rem !important; margin-right: calc(-1 * var(--rand)) !important; }
+.st-gross figcaption { padding-right: var(--rand); }
+.st-rahmen { overflow: hidden; }
+.st-rahmen img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+.st-klein { width: min(46%, 320px); margin-top: -5rem !important; margin-left: -3rem !important; position: relative; z-index: 2; border: 8px solid var(--schiefer); border-bottom: 0; background: var(--schiefer); }
+.st-klein img { width: 100%; }
+.st-zweit { margin-top: clamp(4rem, 10vw, 8rem); padding-top: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--linie); }
+
+/* Finale: Businesspark */
+.station-park { display: flex; flex-direction: column; justify-content: center; }
+.station-park .st-jahr { color: var(--gelb); }
+.park { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); align-items: end; margin: 2.4rem 0 2.2rem; }
+.geschosse { width: 100%; height: auto; overflow: visible; }
+.g-boden { stroke: var(--stein-hell); stroke-width: 1.5; }
+.g { fill: color-mix(in oklab, var(--kalk) 7%, var(--schiefer)); stroke: var(--kalk); stroke-width: 1.5; transform-box: fill-box; transform-origin: 50% 100%; }
+.g4 { stroke: var(--gelb); }
+.g-t { font-family: var(--schrift-text); font-size: 13px; letter-spacing: 0.14em; fill: var(--stein-hell); }
+.kennzahlen { margin: 0; border-top: 1px solid var(--linie); display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.2rem; }
+.kennzahlen div { padding: 0.85rem 0; border-bottom: 1px solid var(--linie); }
+.kennzahlen .kz-breit { grid-column: 1 / -1; }
+.kennzahlen dt { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gedaempft); }
+.kennzahlen dd { margin: 0.3rem 0 0; font-family: var(--schrift-titel); font-size: var(--t-1); font-variant-numeric: lining-nums; }
+.station-park .knopf { align-self: start; }
+.park-hinweis { font-size: 0.8rem; color: var(--gedaempft); margin-top: 1rem; }
+
+/* ---------- Zur Miete: Herrengasse 1 ---------- */
+.miete { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.75rem); align-items: center; padding: clamp(6rem, 13vw, 12rem) var(--rand) clamp(5rem, 10vw, 9rem); }
+.miete-text { grid-column: 1 / span 6; }
+.miete h2 { font-size: clamp(2.4rem, 1rem + 4.6vw, 6.2rem); line-height: 0.96; letter-spacing: -0.03em; max-width: 12ch; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.objekt-adresse { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gedaempft); margin-bottom: 0.8rem; font-variant-numeric: tabular-nums; }
+.miete h3 { font-size: var(--t-3); line-height: 1.05; margin-bottom: 1rem; }
+.miete-text > p:not(.objekt-adresse) { max-width: 40ch; margin-bottom: 1.8rem; }
+.miete-text a:not(.knopf) { text-underline-offset: 0.2em; }
+.miete-bild { grid-column: 8 / -1; margin: 0; justify-self: end; width: min(100%, 460px); }
+.passepartout { background: var(--papier); padding: clamp(1.2rem, 2.4vw, 2.2rem); }
+.passepartout img { width: 100%; display: block; }
+
+/* ---------- Inhaber ---------- */
+.inhaber { background: var(--papier); padding: clamp(5rem, 11vw, 10rem) var(--rand); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.75rem); row-gap: clamp(2.5rem, 5vw, 4rem); }
+.inh-satz { grid-column: 1 / span 9; font-family: var(--schrift-titel); font-size: clamp(2rem, 1rem + 3.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.025em; }
+.inh-namen { grid-column: 1 / span 7; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.75rem; }
+.inh-namen div { border-top: 1px solid var(--schiefer); padding-top: 1rem; }
+.inh-namen dt { font-family: var(--schrift-titel); font-size: var(--t-2); }
+.inh-namen dd { margin: 0.3rem 0 0; color: var(--gedaempft); }
+.inh-zeile { grid-column: 9 / -1; align-self: end; max-width: 30ch; }
+
+/* ---------- Gespräch ---------- */
+.gespraech { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.75rem); padding: clamp(5rem, 10vw, 9rem) var(--rand) clamp(6rem, 11vw, 10rem); }
+.gespraech-kopf { grid-column: 1 / span 5; }
+.gespraech h2 { font-size: var(--t-5); line-height: 1; letter-spacing: -0.025em; }
+.gespraech-text { margin-top: 1.4rem; max-width: 32ch; }
+.gespraech-tel { margin-top: 1.2rem; font-size: var(--t-1); }
+.gespraech-tel a { font-variant-numeric: tabular-nums; }
+.gespraech .anfrage { grid-column: 7 / -1; max-width: 36rem; }
+
+/* ---------- Fuss ---------- */
+.fuss { background: var(--schiefer); color: var(--kalk); padding: 4rem var(--rand) 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.95rem; }
+.fuss .marke { margin-bottom: 1.2rem; }
+.fuss .knopf { margin-top: 1.6rem; }
+.fuss a:not(.knopf) { text-decoration-color: var(--gelb); text-underline-offset: 0.2em; }
+.fuss-klein { font-size: 0.8rem; color: var(--stein-hell); max-width: 60ch; align-self: end; }
+
+/* ---------- Handy ---------- */
+@media (max-width: 960px) {
+  .kopf-nav a:not(.kopf-tel):not(.kopf-cta) { display: none; }
+}
+@media (max-width: 760px) {
+  :root { --kopf-h: 4.4rem; }
+  .kopf-cta { display: none; }
+  .hero { display: block; padding-left: 0; min-height: 0; }
+  .hero-text { display: block; padding: 5.5rem var(--rand) 2.1rem; }
+  .hero h1 { font-size: clamp(3rem, 15vw, 4.4rem); line-height: 0.94; white-space: normal; width: auto; }
+  .hero-lead { margin-top: 1.3rem; padding-top: 0; }
+  .hero-knoepfe { margin-top: 1.7rem; gap: 0.6rem; }
+  .hero-knoepfe .knopf { padding: 0 1.1rem; letter-spacing: 0.12em; }
+  .hero-bild { padding-top: 0; }
+  .hero-rahmen { min-height: 0; aspect-ratio: 5 / 4; }
+  .hero-rahmen picture { transform: scale(1.67); transform-origin: 78% 62%; } /* Handy: eigener Schnitt auf Seefenster und Wohnraum */
+  .hero-bild figcaption { padding-inline: var(--rand); max-width: none; }
+  .info { grid-template-columns: 1fr 1fr; }
+  .info li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .info li:nth-child(n+3) { border-top: 1px solid var(--linie); }
+
+  .proj-kopf { display: block; }
+  .proj-kopf p { margin-top: 1.2rem; }
+  .proj-buehne { display: block; padding-inline: 0; }
+  .karte-spalte { position: sticky; top: 0; z-index: 3; }
+  .karte { position: relative; height: 34svh; padding: 0; background: var(--schiefer); }
+  .karte-jahr { left: var(--rand); bottom: 1.6rem; }
+  .karte-jahr b { font-size: 3rem; }
+  .karte-quelle { position: absolute; top: auto; right: 0.6rem; bottom: 0.3rem; padding: 0; font-size: 0.62rem; text-shadow: 0 1px 6px #1b1d1f; }
+  .stationen { padding: 0 var(--rand) 5rem; }
+  .station { min-height: 0; padding-block: 3rem 4rem; }
+  .station:first-child { padding-top: 2.4rem; }
+  .st-gross { margin-inline: calc(-1 * var(--rand)) !important; }
+  .st-gross figcaption { padding-inline: var(--rand); }
+  .st-klein { width: 62%; margin: -3rem 0 0 auto !important; border-width: 6px; }
+  .st-fakten { grid-template-columns: 1fr; }
+  .park { grid-template-columns: 1fr; }
+  .geschosse { max-width: 300px; }
+
+  .miete { display: block; }
+  .miete-bild { margin-top: 3rem; width: auto; }
+  .inhaber { display: block; }
+  .inh-namen { margin: 2.4rem 0; grid-template-columns: 1fr; row-gap: 1.4rem; }
+  .gespraech { display: block; }
+  .gespraech .anfrage { margin-top: 3rem; }
+  .fuss { grid-template-columns: 1fr; padding-bottom: 9rem; }
+}
