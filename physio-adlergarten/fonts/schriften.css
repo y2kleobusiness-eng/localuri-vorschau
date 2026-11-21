@@ -1,0 +1,61 @@
+/* Erode */
+@font-face {
+  font-family: 'Erode';
+  src: url('IV53KIDERL5VZNKHLNGO3Y3ARYXZDX7F.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url('SMFAKKZYPUS6JMKLX3YWBR33XTVQTN5D.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url('RDMTNE7APFYTJ64ZAAHBINZMSOKWCXKF.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url('RPYYUUA6FJVWJIL3CQP3LGB33YXVOOUV.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Erode';
+  src: url('AL47FDSJFHTXHQ4H2QPW6HPE5NZMJPEX.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* General Sans */
+@font-face {
+  font-family: 'General Sans';
+  src: url('7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+

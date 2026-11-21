@@ -1,0 +1,256 @@
+/* Sportphysio Adlergarten · L4 Sprechstunde · H2 Vollbild · Erode + General Sans · Salbei + Adlergold */
+:root {
+  --kalk: #F6F5F0;
+  --salbei: #828E5C;        /* alte Seite, Menüverlauf oben */
+  --salbei-hell: #DDE1D0;   /* alte Seite, Menüverlauf unten */
+  --salbei-tief: #4E5832;   /* Knöpfe, 7.4:1 auf Weiss */
+  --gold: #84754F;          /* Logo */
+  --gold-tief: #6B5E3C;        /* Gold für kleine Schrift auf Hell, 4.8:1 */
+  --gold-hell: #B9A878;     /* Gold auf Tinte */
+  --tinte: #1D1D1B;         /* Logo */
+  --holz: #A5785A;          /* Boden in den Fotos */
+
+  --bg: var(--kalk);
+  --fg: var(--tinte);
+  --akzent: var(--salbei-tief);
+  --auf-akzent: #fff;
+  --gedaempft: color-mix(in oklab, var(--tinte) 72%, var(--kalk));
+  --linie: color-mix(in oklab, var(--tinte) 16%, var(--kalk));
+  --ph: #d9d3cb;
+
+  --schrift-text: "General Sans", "Segoe UI", Arial, sans-serif;
+  --schrift-titel: "Erode", Georgia, "Times New Roman", serif;
+  --t-0: clamp(1.0625rem, 1.02rem + 0.18vw, 1.125rem); /* 17 → 18 px */
+  --kopf-h: 72px;
+  --radius: 6px;
+}
+
+body { font-weight: 400; line-height: 1.55; font-optical-sizing: auto; }
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.02em; }
+.zahlen, .st-nr, .gang-zahl, .oz-liste { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---------- Knöpfe ---------- */
+.knoepfe { display: flex; flex-wrap: wrap; gap: 10px; }
+.knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.25s var(--ease), color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.3s var(--ease); }
+.knopf:hover { transform: translateY(-1px); }
+.knopf-voll { background: var(--salbei-tief); color: #fff; }
+.knopf-voll:hover { background: var(--tinte); }
+.knopf-linie { box-shadow: inset 0 0 0 1.5px currentColor; color: var(--tinte); font-variant-numeric: tabular-nums; }
+.knopf-linie:hover { background: var(--tinte); color: var(--kalk); box-shadow: inset 0 0 0 1.5px var(--tinte); }
+.knopf-hell { background: var(--salbei-hell); color: var(--tinte); }
+.knopf-hell:hover { background: #fff; }
+.knopf-linie-hell { box-shadow: inset 0 0 0 1.5px var(--salbei-hell); color: var(--kalk); font-variant-numeric: tabular-nums; }
+.knopf-linie-hell:hover { background: var(--kalk); color: var(--tinte); }
+.unterstrichen { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; transition: text-decoration-color 0.2s; }
+.unterstrichen:hover { text-decoration-color: var(--gold); }
+:focus-visible { outline: 2px solid var(--salbei-tief); outline-offset: 3px; }
+.gang :focus-visible, .fuss :focus-visible { outline-color: var(--salbei-hell); }
+
+/* ---------- Kopf ---------- */
+.kopf { position: fixed; z-index: 90; inset: 0 0 auto 0; height: var(--kopf-h); display: flex; align-items: center; gap: var(--s-5); padding-inline: var(--rand); background: color-mix(in oklab, var(--kalk) 96%, transparent); transition: box-shadow 0.4s var(--ease); }
+.kopf.gescrollt { box-shadow: 0 1px 0 var(--linie); }
+.kopf-marke { flex: none; display: block; }
+.kopf-marke img { height: 38px; width: auto; max-width: none; }
+.kopf-nav { display: flex; gap: var(--s-4); margin-left: auto; }
+.kopf-nav a { text-decoration: none; font-weight: 500; font-size: 0.95rem; padding: 10px 2px; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 6px) / 0 1px no-repeat; transition: background-size 0.35s var(--ease); }
+.kopf-nav a:hover { background-size: 100% 1px; }
+.kopf-status, .tafel-status span { display: inline-flex; align-items: center; gap: 0.5em; font-size: 0.9rem; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kopf-status::before, .tafel-status span::before { content: ""; width: 0.55em; height: 0.55em; border-radius: 50%; background: #8d8d88; }
+[data-offen="ja"]::before { background: #3f8a4f !important; box-shadow: 0 0 0 0.22em color-mix(in oklab, #3f8a4f 25%, transparent); }
+[data-offen="bald"]::before { background: #b9822a !important; }
+.kopf-termin { min-height: 44px; padding: 0 20px; }
+
+/* ---------- 1 · Hero ---------- */
+.hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: var(--ph); }
+.hero-bild, .hero-bild picture { position: absolute; inset: 0; }
+.hero-bild img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 55%; }
+.hero-bild { top: var(--kopf-h); } /* Kopf hat Grund (Logo lesbar), das Bild beginnt darunter */
+.tafel { position: absolute; left: var(--rand); bottom: 0; width: min(700px, calc(12.5rem + 31.5vw)); /* so breit wie der Titel: Schild statt Fläche, mehr Bild */ padding: var(--s-6) var(--s-6) var(--s-6) var(--s-6); background: var(--salbei-hell); border-radius: var(--radius) var(--radius) 0 0; }
+.tafel::before { content: ""; position: absolute; left: var(--s-6); right: var(--s-6); top: 0; height: 3px; background: var(--gold); transform: scaleX(var(--linie-x, 1)); transform-origin: left; }
+.tafel-status { margin-bottom: var(--s-4); }
+.tafel-titel { font-size: clamp(3.1rem, 1.2rem + 6.2vw, 7rem); line-height: 0.95; letter-spacing: -0.035em; font-weight: 400; overflow-wrap: normal; }
+.tafel-titel .zeile-maske { padding-bottom: 0.16em; margin-bottom: -0.16em; }
+.tafel-titel .klein { display: block; font-size: 0.34em; letter-spacing: -0.01em; font-style: italic; color: var(--gold); margin-bottom: 0.25em; }
+.tafel-text { max-width: 34ch; margin: var(--s-4) 0 var(--s-5); font-size: var(--t-1); line-height: 1.4; }
+
+/* ---------- 2 · Sprechstunde (4/8) ---------- */
+.sprechstunde { display: grid; grid-template-columns: minmax(320px, 4fr) 8fr; }
+.info { background: var(--salbei-hell); }
+.info-innen { position: sticky; top: var(--kopf-h); display: grid; gap: var(--s-2); padding: var(--s-6) var(--s-5) var(--s-6) var(--rand); }
+.info-titel { font-size: var(--t-3); margin-bottom: var(--s-2); }
+.oz-status { font-size: 1.05rem; margin-bottom: var(--s-2); }
+.oz-status .oz-punkt { background: #8d8d88; }
+.oz-status[data-offen="ja"] .oz-punkt { background: #3f8a4f; }
+.oz-zeile { border-bottom-color: color-mix(in oklab, var(--tinte) 14%, var(--salbei-hell)); font-size: 0.95rem; }
+.oz-zeile dd { white-space: nowrap; }
+.info-klein { font-size: 0.95rem; line-height: 1.45; color: color-mix(in oklab, var(--tinte) 80%, var(--salbei-hell)); }
+.info-tel { margin-top: var(--s-3); font-family: var(--schrift-titel); font-size: var(--t-3); text-decoration: none; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.info-tel:hover, .info-mail:hover { color: var(--salbei-tief); }
+.info-mail { font-size: 0.95rem; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.info-adresse { font-style: normal; margin-top: var(--s-3); font-weight: 500; }
+.info-knoepfe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--s-3); }
+
+.ueber { display: grid; grid-template-columns: repeat(8, 1fr); column-gap: var(--s-5); align-content: start; padding: var(--s-8) var(--rand) var(--s-7) var(--s-7); }
+.titel-gross { font-size: clamp(2.6rem, 1.4rem + 4.2vw, 5.4rem); line-height: 0.98; letter-spacing: -0.035em; }
+.ueber-kopf { grid-column: 1 / -1; }
+.ueber-kopf .titel-gross { margin-bottom: var(--s-4); }
+.lead { font-size: var(--t-1); line-height: 1.45; max-width: 36ch; }
+.ueber-kopf .lead { max-width: 44ch; }
+.ueber-bild { grid-column: 1 / span 4; margin-top: var(--s-6); }
+.ueber-bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 72% 40%; border-radius: var(--radius); }
+.ueber-text { grid-column: 5 / span 4; margin-top: calc(var(--s-6) + var(--s-7)); display: grid; gap: var(--s-5); align-content: start; max-width: 38ch; }
+.fakten { display: grid; gap: var(--s-4); }
+.fakten dt { font-family: var(--schrift-titel); font-size: var(--t-1); color: var(--gold-tief); margin-bottom: 4px; }
+.fakten dt small { font-family: var(--schrift-text); font-size: 0.8rem; color: var(--gedaempft); }
+.fakten dd { margin: 0; line-height: 1.5; }
+
+/* ---------- 3 · Gang durch die Praxis ---------- */
+.gang { position: relative; background: var(--tinte); color: var(--kalk); padding: var(--s-7) 0 var(--s-5); overflow: hidden; }
+.gang .titel-gross { color: var(--kalk); }
+.gang-kopf { padding-inline: var(--rand); display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-3) var(--s-6); margin-bottom: var(--s-6); }
+.gang-sub { max-width: 34ch; font-size: var(--t-1); line-height: 1.4; color: color-mix(in oklab, var(--kalk) 82%, var(--tinte)); }
+.gang-fenster { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.gang-fenster::-webkit-scrollbar { display: none; }
+.gang-spur { list-style: none; padding: 0 var(--rand); display: flex; align-items: flex-start; gap: clamp(2rem, 5vw, 6rem); width: max-content; }
+.station { position: relative; flex: 0 0 auto; scroll-snap-align: start; scroll-margin-left: var(--rand); }
+.station picture { border-radius: var(--radius); overflow: hidden; }
+.station img { width: 100%; height: 100%; object-fit: cover; }
+.st-weit { width: 46vw; }
+.st-weit > picture:first-child img { aspect-ratio: 3 / 2; }
+.st-hoch { width: 20vw; margin-top: 4vh; }
+.st-hoch img { aspect-ratio: 2 / 3; }
+.st-klein { width: 22vw; margin-top: 10vh; }
+.st-klein img { aspect-ratio: 4 / 5; }
+.st-unten { margin-top: 18vh; }
+.st-paar { padding-bottom: 0; }
+.st-detail { position: absolute; right: -6vw; top: 58%; width: 17vw; box-shadow: 0 0 0 8px var(--tinte); }
+.st-detail img { aspect-ratio: 1; object-position: 55% 60%; }
+.st-paar .st-text { max-width: 30vw; }
+.st-text { margin-top: var(--s-3); max-width: 36ch; }
+.st-nr { font-family: var(--schrift-titel); font-size: var(--t-2); color: var(--gold-hell); line-height: 1; margin-bottom: 6px; }
+.st-text h3 { font-size: var(--t-3); line-height: 1.05; margin-bottom: 6px; }
+.st-text p:not(.st-nr) { color: color-mix(in oklab, var(--kalk) 84%, var(--tinte)); line-height: 1.45; }
+.st-liste { font-size: 0.98rem; }
+
+/* Haltestellen-Schild (Typografie, kein Foto) */
+.st-halt { width: 24vw; display: grid; gap: var(--s-4); }
+.schild { position: relative; display: grid; justify-items: start; gap: 6px; padding: var(--s-4) var(--s-4) var(--s-5); background: var(--salbei-hell); color: var(--tinte); border-radius: var(--radius); box-shadow: inset 0 0 0 3px var(--gold); margin-bottom: 64px; }
+.schild::after { content: ""; position: absolute; left: var(--s-5); top: 100%; width: 8px; height: 64px; background: linear-gradient(90deg, #6d6d68, #9a9a94 50%, #6d6d68); }
+.schild-h { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--tinte); color: var(--salbei-hell); font-weight: 600; font-size: 1.4rem; }
+.schild-name { font-weight: 600; font-size: clamp(1.6rem, 1rem + 1.6vw, 2.6rem); letter-spacing: -0.01em; line-height: 1.05; margin-top: 6px; }
+.schild-ort { font-size: 0.95rem; color: color-mix(in oklab, var(--tinte) 75%, var(--salbei-hell)); }
+
+.st-ende { width: 34vw; align-self: center; display: grid; gap: var(--s-4); justify-items: start; padding-right: var(--rand); }
+.station .adler { width: 84px; height: auto; }
+.ende-titel { font-size: var(--t-4) !important; margin-bottom: var(--s-4) !important; }
+
+.gang-leiste { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-5) var(--rand) 0; }
+.gang-zahl { font-family: var(--schrift-titel); font-size: var(--t-1); color: color-mix(in oklab, var(--kalk) 70%, var(--tinte)); white-space: nowrap; }
+.gang-zahl b { font-weight: 400; color: var(--gold-hell); }
+.gang-linie { position: relative; flex: 1; height: 2px; background: color-mix(in oklab, var(--kalk) 18%, var(--tinte)); }
+.gang-fuell { position: absolute; inset: 0; background: var(--gold-hell); transform-origin: left; transform: scaleX(0); }
+
+/* Desktop mit Bewegung: Szene wird gepinnt, die Spur fährt waagrecht (site.js) */
+.gang.gepinnt { height: 100vh; padding-top: calc(var(--kopf-h) + var(--s-4)); display: flex; flex-direction: column; }
+.gang.gepinnt .gang-kopf { margin-bottom: var(--s-5); }
+.gang.gepinnt .gang-fenster { overflow: visible; scroll-snap-type: none; flex: 1; }
+.gang.gepinnt .gang-leiste { margin-top: auto; padding-bottom: var(--s-4); }
+.gang.gepinnt .gang-kopf { margin-bottom: var(--s-4); }
+.gang.gepinnt .titel-gross { font-size: clamp(2.4rem, 1rem + 3.4vw, 4.4rem); }
+.gang.gepinnt .st-weit { width: calc(44vh * 1.5); }
+.gang.gepinnt .st-hoch { width: calc(42vh * 2 / 3); margin-top: 2vh; }
+.gang.gepinnt .st-klein { width: calc(34vh * 0.8); margin-top: 6vh; }
+.gang.gepinnt .st-unten { margin-top: 12vh; }
+.gang.gepinnt .st-detail { width: 24vh; right: -4vw; }
+.gang.gepinnt .st-paar .st-text { max-width: calc(44vh * 1.5 - 22vh); }
+.gang.gepinnt .st-halt { width: 30vh; min-width: 260px; }
+.gang.gepinnt .st-text h3 { font-size: var(--t-2); }
+
+/* ---------- 4 · Termin ---------- */
+.termin { display: grid; grid-template-columns: 4fr 8fr; gap: var(--s-6); padding: var(--s-8) var(--rand); background: var(--salbei); color: var(--tinte); }
+.termin-links { display: grid; gap: var(--s-3); align-content: start; position: sticky; top: calc(var(--kopf-h) + var(--s-5)); align-self: start; }
+.termin-links .titel-gross { margin-bottom: var(--s-2); }
+.termin-links p { max-width: 34ch; }
+.notfall { font-size: 0.95rem; margin-top: var(--s-3); }
+.termin-karte { background: var(--kalk); border-radius: var(--radius); padding: var(--s-6); justify-self: end; width: min(100%, 680px); }
+.anfrage { max-width: none; }
+.anf-titel { letter-spacing: 0.06em; color: var(--gedaempft); }
+.anf-monat { font-family: var(--schrift-titel); font-size: var(--t-2); }
+.anf-chip[aria-checked="true"] { background: var(--salbei-tief); color: #fff; }
+.anf-raster td[aria-selected="true"], .anf-raster td[aria-selected="true"]:hover { background: var(--salbei-tief); }
+.anf-senden { background: var(--salbei-tief); }
+.anf-senden:hover { background: var(--tinte); filter: none; }
+
+/* ---------- Fuss ---------- */
+.fuss { background: var(--tinte); color: var(--kalk); padding: var(--s-7) var(--rand) var(--s-5); }
+.fuss a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.fuss a:hover { color: var(--salbei-hell); }
+.fuss .knopf-hell { color: var(--tinte); }
+.fuss-raster { display: grid; grid-template-columns: 4fr 4fr 4fr; gap: var(--s-6); align-items: start; }
+.fuss-marke img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.fuss-titel { font-size: var(--t-2); color: var(--gold-hell); margin-bottom: var(--s-3); }
+.fuss address { font-style: normal; margin-bottom: var(--s-3); }
+.fuss p + p { margin-top: var(--s-3); }
+.fuss-klein { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid color-mix(in oklab, var(--kalk) 16%, var(--tinte)); font-size: 0.85rem; color: color-mix(in oklab, var(--kalk) 72%, var(--tinte)); max-width: 70ch; }
+.fuss-klein p + p { margin-top: 4px; }
+
+/* ---------- Kontaktleiste Handy ---------- */
+.kontaktleiste { background: var(--kalk); }
+.kontaktleiste .haupt { background: var(--salbei-tief); color: #fff; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1080px) {
+  .kopf-nav { display: none; }
+  .ueber { padding-left: var(--s-5); }
+  .ueber-bild { grid-column: 1 / span 4; }
+  .ueber-text { grid-column: 5 / -1; }
+}
+
+/* ---------- Handy ---------- */
+@media (max-width: 760px) {
+  :root { --kopf-h: 60px; }
+  .kopf { gap: var(--s-3); background: color-mix(in oklab, var(--kalk) 96%, transparent); box-shadow: 0 1px 0 var(--linie); }
+  .kopf-marke img { height: 30px; }
+  .kopf-status { margin-left: auto; font-size: 0.8rem; }
+  .kopf-termin { display: none; }
+
+  .hero { height: auto; min-height: 0; display: grid; padding-top: var(--kopf-h); }
+  .hero-bild { position: relative; top: 0; height: 43svh; }
+  .hero-bild img { object-position: 30% 50%; }
+  .tafel { position: relative; left: 0; width: auto; border-radius: 0; padding: var(--s-4) var(--rand) var(--s-5); }
+  .tafel::before { left: var(--rand); right: auto; width: 56px; }
+  .tafel-status { display: none; }
+  .tafel-titel { font-size: clamp(3.2rem, 1rem + 12.5vw, 4.4rem); }
+  .tafel-titel .klein { color: var(--gold-tief); }
+  .tafel-text { font-size: 1.0625rem; margin: var(--s-3) 0 var(--s-4); }
+  .tafel .knopf { flex: 1 1 auto; }
+
+  .sprechstunde { grid-template-columns: 1fr; }
+  .info-innen { position: static; padding: var(--s-6) var(--rand); }
+  .ueber { grid-template-columns: 1fr; padding: var(--s-7) var(--rand) var(--s-6); }
+  .ueber-bild, .ueber-text { grid-column: 1; }
+  .ueber-bild { margin-top: var(--s-5); width: 88%; }
+  .ueber-text { margin-top: var(--s-5); }
+  .ueber-kopf .lead { width: auto; }
+
+  .gang { padding: var(--s-7) 0 var(--s-5); }
+  .gang-spur { gap: var(--s-4); align-items: flex-start; }
+  .st-weit, .st-hoch, .st-klein, .st-halt { width: 80vw; margin-top: 0; }
+  .st-hoch img, .st-klein img { aspect-ratio: 4 / 5; }
+  .st-detail { width: 34vw; right: -2vw; top: auto; bottom: 0; transform: translateY(40%); }
+  .st-paar > picture:first-child { margin-bottom: 0; }
+  .st-paar .st-text { max-width: none; margin-top: calc(var(--s-3) + 12vw); padding-right: 34vw; }
+  .st-ende { width: 80vw; padding-right: var(--rand); }
+  .schild { margin-bottom: 48px; }
+  .schild::after { height: 48px; }
+
+  .termin { grid-template-columns: 1fr; padding: var(--s-7) var(--rand); gap: var(--s-5); }
+  .termin-links { position: static; }
+  .termin-karte { padding: var(--s-4); justify-self: stretch; }
+  .fuss-raster { grid-template-columns: 1fr; }
+  .fuss-marke { width: 70%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knopf, .kopf-nav a { transition: none; }
+}
