@@ -1,0 +1,292 @@
+/* J. Gisler Söhne AG · L1 Werkplan · Archivo + JetBrains Mono · warm Holz */
+:root {
+  --werkstatt: #ECE8E1;   /* Werkstattweiss, Grund */
+  --laerche: #C9A06B;     /* Holzton aus den Fotos, grosse Fläche */
+  --laerche-hell: #E3CBA6;
+  --anthrazit: #58504D;   /* Menüfarbe der alten Seite, Linien */
+  --tinte: #2B2624;       /* Text, dunkle Abschnitte */
+  --mass: #E08A1E;        /* gedämpftes Hausorange: nur Massketten und Knöpfe */
+
+  --bg: var(--werkstatt);
+  --fg: var(--tinte);
+  --gedaempft: #5E5551;
+  --linie: color-mix(in oklab, var(--anthrazit) 30%, var(--werkstatt));
+  --akzent: var(--mass);
+  --auf-akzent: var(--tinte);
+
+  --schrift-text: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --schrift-titel: "Archivo", "Arial", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --spalte: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  --kopf-h: 72px;
+}
+html { scroll-padding-top: var(--kopf-h); }
+body { font-variation-settings: "wdth" 100; font-size: clamp(1rem, 0.93rem + 0.3vw, 1.15rem); line-height: 1.55; font-optical-sizing: auto; }
+a { text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--tinte); outline-offset: 3px; box-shadow: 0 0 0 5px var(--mass); }
+
+/* ---------- Raster ---------- */
+.raster { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--spalte); }
+.raster > * { grid-column: 1 / -1; }
+
+/* ---------- Typo ---------- */
+.kapitel { font: 500 0.8125rem/1.3 var(--mono); letter-spacing: 0.04em; color: var(--gedaempft); text-transform: none; }
+.titel-gross { font-family: var(--schrift-titel); font-variation-settings: "wdth" 118; font-weight: 750; font-size: clamp(2.4rem, 1.4rem + 4.2vw, 5.6rem); line-height: 0.98; letter-spacing: -0.03em; margin-top: var(--s-2); overflow-wrap: normal; }
+.titel-mittel { font-variation-settings: "wdth" 112; font-weight: 700; font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem); line-height: 1.02; letter-spacing: -0.02em; }
+.lead { font-size: clamp(1.06rem, 0.98rem + 0.4vw, 1.3rem); line-height: 1.5; max-width: 30em; margin-top: var(--s-4); }
+.legende { font: 400 0.8125rem/1.4 var(--mono); color: var(--gedaempft); margin-top: 0.6em; display: flex; gap: 0.6em; align-items: baseline; flex-wrap: wrap; }
+.legende span { color: var(--tinte); border: 1px solid currentColor; padding: 0 0.35em; font-weight: 500; }
+.kleingedruckt { font: 400 0.8125rem/1.5 var(--mono); color: var(--gedaempft); }
+
+/* ---------- Knöpfe ---------- */
+.knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.7em 1.25em; font-weight: 650; font-variation-settings: "wdth" 108; text-decoration: none; border-radius: 2px; transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease); }
+.knopf-voll { background: var(--mass); color: var(--tinte); }
+.knopf-voll:hover { background: var(--tinte); color: var(--werkstatt); }
+.knopf-linie { border: 1.5px solid var(--tinte); color: var(--tinte); }
+.knopf-linie:hover { background: var(--tinte); color: var(--werkstatt); }
+.knoepfe { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-5); }
+
+/* ---------- Kopf ---------- */
+.kopf { position: sticky; top: 0; z-index: 50; background: color-mix(in oklab, var(--werkstatt) 94%, transparent); border-bottom: 1px solid var(--linie); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.kopf-innen { display: flex; align-items: center; gap: var(--s-4); min-height: var(--kopf-h); }
+.marke { display: flex; flex-direction: column; text-decoration: none; line-height: 1.05; margin-right: auto; }
+.marke-name { font-variation-settings: "wdth" 125; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.01em; }
+.marke-zeile { font: 400 0.75rem/1.3 var(--mono); color: var(--gedaempft); margin-top: 3px; }
+.kopf-nav { display: flex; gap: var(--s-3); }
+.kopf-nav a { text-decoration: none; font-size: 0.95rem; font-weight: 550; padding: 0.5em 0; display: inline-flex; gap: 0.35em; align-items: baseline; border-bottom: 1.5px solid transparent; transition: border-color .25s var(--ease); }
+.kopf-nav a span { font: 400 0.72rem var(--mono); color: var(--gedaempft); }
+.kopf-nav a:hover { border-color: var(--mass); }
+.kopf-tel { font: 500 0.95rem var(--mono); text-decoration: none; white-space: nowrap; }
+.kopf-tel:hover { color: var(--gedaempft); }
+.kopf-cta { min-height: 44px; padding: 0.55em 1em; font-size: 0.95rem; }
+@media (max-width: 1180px) { .kopf-nav { display: none; } }
+@media (max-width: 760px) { :root { --kopf-h: 60px; } .kopf-tel, .kopf-cta { display: none; } .marke-name { font-size: 1.05rem; } }
+
+/* ---------- Hero ---------- */
+.hero { padding-top: clamp(1.5rem, 1rem + 3vw, 4rem); }
+.hero-raster { align-items: end; row-gap: var(--s-5); }
+.hero-text { grid-column: 1 / span 7; align-self: center; }
+.hero-titel { font-variation-settings: "wdth" 125; font-weight: 800; font-size: clamp(3.2rem, 1.6rem + 6.6vw, 8.4rem); line-height: 0.92; letter-spacing: -0.04em; margin-top: var(--s-3); overflow-wrap: normal; hyphens: none; }
+.hero-lead { font-size: clamp(1.1rem, 1rem + 0.45vw, 1.35rem); max-width: 26em; margin-top: var(--s-4); }
+.hero-bild { grid-column: 8 / -1; }
+.plan-buehne { position: relative; aspect-ratio: 1040 / 1020; background: var(--werkstatt); }
+.plan { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.plan path { fill: none; stroke: var(--tinte); vector-effect: non-scaling-stroke; }
+.plan-rahmen { stroke-width: 1.75; }
+.plan-stufen { stroke-width: 1; opacity: 0.85; }
+.plan-buehne { --intro: 1; --scroll: 0; --rest: calc(100 - var(--intro) * 62 - var(--scroll) * 38); }
+.hero-foto { position: absolute; inset: 0; clip-path: inset(0 0 0 calc(var(--rest) * 1%)); }
+.hero-foto picture, .hero-foto img, .maske picture { display: block; }
+.hero-foto picture, .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
+.naht { position: absolute; top: 0; bottom: 0; left: calc(var(--rest) * 1%); width: 2px; margin-left: -1px; background: var(--mass); }
+.mass { position: absolute; display: flex; align-items: center; gap: 8px; font: 500 0.75rem/1 var(--mono); color: var(--tinte); white-space: nowrap; }
+.mass i { display: block; background: var(--mass); }
+.mass-oben { top: -1.6rem; left: 0; right: 0; }
+.mass-oben i { flex: 1; height: 1px; position: relative; }
+.mass-oben i::before, .mass-oben i::after { content: ""; position: absolute; top: -5px; width: 1px; height: 11px; background: var(--mass); }
+.mass-oben i::before { left: 0; } .mass-oben i::after { right: 0; }
+.mass-oben b { order: -1; font-weight: 500; }
+.mass-seite { right: -0.5rem; bottom: 12%; writing-mode: vertical-rl; transform: rotate(180deg); translate: 100% 0; }
+.mass-seite i { width: 1px; height: 64px; }
+.mass-seite b { font-weight: 500; }
+.hero-bild .legende span:nth-child(2) { background: var(--tinte); color: var(--werkstatt); border-color: var(--tinte); }
+
+.infostreifen { display: grid; grid-template-columns: 1.3fr 1.6fr 1.4fr 1fr; border-top: 1.5px solid var(--tinte); border-bottom: 1px solid var(--linie); margin-top: var(--s-6); }
+.infostreifen > div { padding: var(--s-3) var(--s-3) var(--s-3) 0; }
+.infostreifen > div + div { border-left: 1px solid var(--linie); padding-left: var(--s-3); }
+.infostreifen dt { font: 500 0.75rem var(--mono); color: var(--gedaempft); letter-spacing: 0.04em; }
+.infostreifen dd { margin-top: 0.3em; font-weight: 550; line-height: 1.35; }
+.infostreifen a { text-decoration: none; border-bottom: 1px solid var(--mass); }
+.infostreifen a:hover { color: var(--gedaempft); }
+
+/* ---------- Abschnitte allgemein ---------- */
+section { position: relative; }
+.abschnitt-kopf { grid-column: 1 / span 7; }
+.maske { margin: 0; }
+.maske picture { overflow: hidden; }
+.maske img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- 01 Treppen ---------- */
+.treppen { padding-block: var(--s-8) var(--s-7); }
+.treppen .raster { row-gap: var(--s-5); }
+.tr-gross { grid-column: 1 / span 5; grid-row: 2 / span 2; }
+.tr-gross picture { aspect-ratio: 1; }
+.tr-mitte { grid-column: 6 / span 4; grid-row: 2 / span 2; align-self: end; } .tr-klein { margin-left: var(--spalte); }
+.tr-mitte picture { aspect-ratio: 1; }
+.tr-klein { grid-column: 10 / span 3; grid-row: 2 / span 2; align-self: start; }
+.tr-klein picture { aspect-ratio: 3 / 4; }
+
+.rechner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--spalte); row-gap: var(--s-5); margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1.5px solid var(--tinte); }
+.rechner-kopf { grid-column: 1 / span 4; }
+.rechner-kopf p:last-child { margin-top: var(--s-3); color: var(--gedaempft); }
+.rechner-wahl { grid-column: 1 / span 4; grid-row: 2; align-self: start; position: sticky; top: calc(var(--kopf-h) + 1.5rem); }
+.rechner-schnitt { grid-column: 5 / -1; grid-row: 1 / span 2; margin: 0; background: color-mix(in oklab, var(--laerche) 22%, var(--werkstatt)); border: 1px solid var(--linie); }
+.rechner-ergebnis { grid-column: 5 / -1; display: grid; grid-template-columns: 1fr auto; column-gap: var(--s-5); row-gap: var(--s-2); align-items: start; }
+.rechner-ergebnis .werte { grid-column: 1 / -1; }
+.rechner-ergebnis > .knopf { grid-column: 2; grid-row: 2; }
+.rechner-ergebnis > .kleingedruckt:first-of-type { grid-column: 1; grid-row: 2 / span 2; max-width: 40em; }
+.rechner-ergebnis > .kleingedruckt:last-of-type { grid-column: 2; grid-row: 3; text-align: right; }
+.wahl-titel { font: 500 0.8125rem var(--mono); color: var(--gedaempft); margin-top: var(--s-4); margin-bottom: 0.5em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { min-height: 44px; padding: 0.4em 0.9em; border: 1.5px solid var(--linie); font: 500 0.875rem var(--mono); color: var(--tinte); background: transparent; border-radius: 2px; transition: border-color .2s var(--ease), background-color .2s var(--ease); font-variant-numeric: tabular-nums; }
+.chips button:hover { border-color: var(--tinte); }
+.chips button[aria-checked="true"] { background: var(--tinte); color: var(--werkstatt); border-color: var(--tinte); }
+.werte { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); }
+.werte > div { padding: var(--s-2) 0; }
+.werte > div + div { border-left: 1px solid var(--linie); padding-left: var(--s-3); }
+.werte dt { font: 400 0.75rem var(--mono); color: var(--gedaempft); }
+.werte dd { font-variation-settings: "wdth" 115; font-weight: 750; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.2rem); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; margin-top: 0.15em; }
+.schnitt { width: 100%; height: auto; }
+.schnitt .s-linie { fill: none; stroke: var(--tinte); stroke-width: 1.6; stroke-linejoin: round; }
+.schnitt .s-duenn { fill: none; stroke: var(--tinte); stroke-width: 0.8; }
+.schnitt .s-holz { fill: var(--laerche); stroke: var(--tinte); stroke-width: 1.2; }
+.schnitt .s-glas { fill: color-mix(in oklab, #9fb8c0 35%, transparent); stroke: var(--tinte); stroke-width: 0.8; }
+.schnitt .s-schraffur { fill: url(#schraffur); stroke: var(--tinte); stroke-width: 1.2; }
+.schnitt .s-mass { stroke: var(--mass); stroke-width: 1.2; fill: none; }
+.schnitt text { font: 500 13px var(--mono); fill: var(--tinte); font-variant-numeric: tabular-nums; }
+.schnitt text.s-gedaempft { fill: var(--gedaempft); font-weight: 400; }
+
+/* ---------- 02 Schreinerei ---------- */
+.schreinerei { padding-block: var(--s-7) var(--s-8); }
+.schreinerei .raster { row-gap: var(--s-5); }
+.sr-gross { grid-column: 1 / span 7; }
+.sr-gross picture { aspect-ratio: 4 / 3; }
+.stueckliste { grid-column: 9 / -1; align-self: start; font-family: var(--mono); font-size: 0.9375rem; }
+.stueck-kopf { display: grid; grid-template-columns: 3.2em 1fr; font-size: 0.75rem; color: var(--gedaempft); border-bottom: 1.5px solid var(--tinte); padding-bottom: 0.4em; }
+.stueckliste ol { list-style: none; padding: 0; }
+.stueckliste li { display: grid; grid-template-columns: 3.2em 1fr; padding: 0.62em 0; border-bottom: 1px solid var(--linie); line-height: 1.35; }
+.stueckliste li span { color: var(--gedaempft); }
+.sr-detail { grid-column: 8 / span 4; margin-top: calc(-1 * var(--s-7)); }
+.sr-detail picture { aspect-ratio: 4 / 3; }
+
+/* ---------- 03 Fassade (Lärchenfläche) ---------- */
+.fassade { background: var(--laerche); padding-block: var(--s-8); }
+.fassade .kapitel, .fassade .legende { color: #3E3531; }
+.fassade .raster { row-gap: var(--s-5); }
+.fa-gross { grid-column: 1 / span 8; }
+.fa-gross picture { aspect-ratio: 4 / 3; }
+.fa-detail { grid-column: 9 / -1; align-self: end; }
+.fa-detail picture { aspect-ratio: 3 / 4; }
+
+/* ---------- 04 Planung (dunkel, Plankopf) ---------- */
+.planung { background: var(--tinte); color: var(--werkstatt); padding-block: var(--s-7); }
+.planung .kapitel { color: #B8AEA8; }
+.planung .raster { row-gap: var(--s-6); }
+.planung .abschnitt-kopf { grid-column: 1 / span 6; }
+.plankopf { grid-column: 7 / -1; align-self: end; display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--werkstatt); font-family: var(--mono); }
+.pk-zelle { padding: 0.75em 0.9em; border-right: 1px solid #6E6460; border-bottom: 1px solid #6E6460; display: flex; flex-direction: column; gap: 0.35em; min-height: 5.2em; }
+.pk-zelle span { font-size: 0.6875rem; color: #B8AEA8; letter-spacing: 0.04em; }
+.pk-zelle b { font-weight: 500; font-size: 0.9375rem; line-height: 1.3; }
+.pk-projekt { grid-column: span 3; }
+.pk-projekt b { font-family: var(--schrift-titel); font-variation-settings: "wdth" 118; font-weight: 750; font-size: 1.5rem; }
+.pk-breit { grid-column: span 3; border-bottom: 0; }
+.pk-firma { border-bottom: 0; background: var(--mass); color: var(--tinte); }
+.pk-firma span { color: var(--tinte); }
+.plankopf > :nth-child(2), .plankopf > :nth-child(6), .plankopf > :nth-child(8) { border-right: 0; }
+/* 1fr hat min-content als Untergrenze: lange Woerter sprengten das Raster unter ca. 1400 px (rechte Zellen abgeschnitten) */
+@media (min-width: 761px) and (max-width: 1420px) { .plankopf { grid-template-columns: repeat(4, minmax(0, 1fr)); } .pk-zelle b { hyphens: auto; overflow-wrap: anywhere; } }
+
+/* ---------- 05 Familie ---------- */
+.familie { padding-block: var(--s-8) var(--s-7); }
+.generationen { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: var(--s-6); border-top: 1.5px solid var(--tinte); }
+.generationen li { padding: var(--s-3) var(--s-3) 0 0; position: relative; }
+.generationen li + li { padding-left: var(--s-3); border-left: 1px solid var(--linie); }
+.generationen b { display: block; font-variation-settings: "wdth" 125; font-weight: 800; font-size: clamp(2rem, 1.4rem + 2.2vw, 3.4rem); letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.generationen li:last-child b { color: var(--tinte); box-shadow: inset 0 -0.22em 0 var(--mass); display: inline-block; }
+.generationen span { display: block; margin-top: 0.6em; font-size: 0.9375rem; line-height: 1.45; max-width: 18em; }
+.lehre { grid-column: 1 / span 8; display: flex; gap: var(--s-4); align-items: baseline; margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--linie); }
+.lehre-zahl { font-variation-settings: "wdth" 125; font-weight: 800; font-size: clamp(4rem, 3rem + 4vw, 7rem); line-height: 0.8; letter-spacing: -0.04em; color: var(--tinte); }
+.lehre p:last-child { max-width: 30em; font-size: 1.1rem; }
+
+/* ---------- 06 Ausstellung + Anfrage ---------- */
+.ausstellung { background: color-mix(in oklab, var(--laerche) 18%, var(--werkstatt)); padding-block: var(--s-7) var(--s-8); border-top: 1px solid var(--linie); }
+.ausstellung .raster { row-gap: var(--s-5); }
+.ausstellung .abschnitt-kopf { grid-column: 1 / span 6; }
+.au-bild { grid-column: 8 / -1; grid-row: 1; align-self: end; }
+.au-bild picture { aspect-ratio: 1; } .au-bild { grid-column: 9 / -1 !important; }
+.anfrage-block { grid-column: 1 / span 7; background: var(--werkstatt); border: 1.5px solid var(--tinte); padding: var(--s-5); }
+.anfrage-block > p { margin-top: var(--s-2); color: var(--gedaempft); max-width: 34em; }
+.kontakt { grid-column: 9 / -1; font-style: normal; display: flex; flex-direction: column; gap: var(--s-3); align-self: start; position: sticky; top: calc(var(--kopf-h) + 1.5rem); }
+.kontakt a:not(.knopf) { font-weight: 600; }
+.kontakt .werkstatt { font-size: 0.9375rem; color: var(--gedaempft); border-left: 2px solid var(--mass); padding-left: 0.8em; }
+.kontakt .knopf { align-self: flex-start; }
+
+/* Anfrage-Widget im Werkplan-Look */
+.anfrage { margin-top: var(--s-4); }
+.anfrage .anf-titel { font: 500 0.8125rem var(--mono); color: var(--gedaempft); }
+.anfrage .anf-chip { border-radius: 2px; font-family: var(--mono); font-size: 0.875rem; min-height: 44px; }
+.anfrage .anf-chip[aria-checked="true"] { background: var(--tinte); color: var(--werkstatt); border-color: var(--tinte); }
+.anfrage input, .anfrage textarea { border: 0; border-bottom: 1.5px solid var(--tinte); border-radius: 0; background: color-mix(in oklab, var(--laerche) 10%, #fff); padding: 0.6em 0.7em; width: 100%; font-size: 1rem; }
+.anfrage input:focus-visible, .anfrage textarea:focus-visible { outline: 2px solid var(--tinte); outline-offset: 0; box-shadow: none; }
+.anfrage .anf-zusammen { font: 500 0.875rem var(--mono); border-left: 2px solid var(--mass); padding-left: 0.7em; }
+.anfrage .anf-zusammen:empty { display: none; }
+.anfrage .anf-senden { background: var(--mass); color: var(--tinte); border-radius: 2px; min-height: 48px; font-weight: 650; }
+.anfrage .anf-senden:hover { background: var(--tinte); color: var(--werkstatt); }
+
+/* ---------- Fuss ---------- */
+.fuss { background: var(--tinte); color: var(--werkstatt); padding-block: var(--s-6) calc(var(--s-6) + var(--leiste-h)); }
+.fuss-raster { row-gap: var(--s-3); align-items: start; }
+.fuss-marke { grid-column: 1 / span 4; font-variation-settings: "wdth" 125; font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em; }
+.fuss-raster > p:nth-child(2) { grid-column: 5 / span 4; }
+.fuss-raster > p:nth-child(3) { grid-column: 9 / -1; justify-self: end; }
+.fuss-klein { grid-column: 1 / span 8 !important; font: 400 0.75rem/1.5 var(--mono); color: #B8AEA8; margin-top: var(--s-4); }
+.fuss a:not(.knopf) { color: inherit; }
+.fuss .knopf-voll:hover { background: var(--werkstatt); color: var(--tinte); }
+
+/* ---------- Handy ---------- */
+@media (max-width: 760px) {
+  .raster > *, .hero-text, .hero-bild, .abschnitt-kopf, .planung .abschnitt-kopf, .ausstellung .abschnitt-kopf { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .hero { padding-top: var(--s-4); }
+  .hero-raster { row-gap: var(--s-5); }
+  .hero-titel { font-size: clamp(3rem, 1.2rem + 9vw, 4rem); }
+  .knoepfe .knopf { flex: 1 1 100%; }
+  .hero .knoepfe { margin-top: var(--s-4); }
+  .hero-text { display: contents; }
+  .hero-raster { row-gap: 0; }
+  .hero-raster > *, .hero-text > * { grid-column: 1 / -1; }
+  .hero-text .kapitel { order: 1; } .hero-titel { order: 2; } .hero-bild { order: 3; margin-top: var(--s-5) !important; } .hero-lead { order: 4; } .hero .knoepfe { order: 5; }
+  .hero-titel { margin-bottom: 0; }
+  .hero .knopf-linie { display: none; } /* Anrufen steht in der Kontaktleiste unten */
+  .hero-lead { margin-top: var(--s-3); }
+  .hero-bild { margin-top: var(--s-4); }
+  .mass-seite { display: none; }
+  .infostreifen { grid-template-columns: 1fr 1fr; }
+  .infostreifen > div:nth-child(3) { border-left: 0; padding-left: 0; }
+  .infostreifen > div:nth-child(n+3) { border-top: 1px solid var(--linie); }
+  .treppen { padding-block: var(--s-7) var(--s-6); }
+  .tr-gross { grid-column: 1 / -1 !important; }
+  .tr-mitte { grid-column: 1 / span 7 !important; margin-top: 0; }
+  .tr-klein { grid-column: 8 / -1 !important; grid-row: auto !important; align-self: end; }
+  .treppen .raster { grid-auto-flow: row dense; }
+  .rechner { grid-template-columns: 1fr; margin-top: var(--s-7); }
+  .rechner > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .rechner-schnitt { order: 2; }
+  .rechner-wahl { order: 1; }
+  .rechner-ergebnis { order: 3; grid-template-columns: 1fr; }
+  .rechner-wahl { position: static; }
+  .kontakt { position: static; }
+  .schnitt text { font-size: 26px; }
+  .schnitt .s-linie { stroke-width: 3; } .schnitt .s-mass { stroke-width: 2.4; }
+  .rechner-ergebnis > * { grid-column: 1 / -1 !important; grid-row: auto !important; text-align: left !important; }
+  .rechner-ergebnis > .knopf { width: 100%; }
+  .werte { grid-template-columns: 1fr 1fr; }
+  .werte > div:nth-child(3) { border-left: 0; padding-left: 0; }
+  .werte > div:nth-child(n+3) { border-top: 1px solid var(--linie); }
+  .sr-detail { margin-top: 0; }
+  .stueckliste { order: 3; }
+  .fa-detail { grid-column: 4 / -1 !important; }
+  .plankopf { grid-template-columns: minmax(0, 1fr); }
+  .plankopf > * { grid-column: 1 / -1 !important; border-right: 0 !important; border-bottom: 1px solid #6E6460 !important; min-height: 0; flex-direction: row; justify-content: space-between; align-items: baseline; gap: 1em; }
+  .plankopf > :last-child { border-bottom: 0 !important; }
+  .pk-zelle b { text-align: right; }
+  .pk-projekt { flex-direction: column; }
+  .pk-projekt b { text-align: left; }
+  .generationen { grid-template-columns: 1fr; border-top: 0; }
+  .generationen li, .generationen li + li { padding: var(--s-3) 0; border-left: 0; border-top: 1px solid var(--linie); display: grid; grid-template-columns: 6.4rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+  .generationen b { font-size: 2rem; }
+  .generationen span { margin-top: 0; }
+  .lehre { margin-top: var(--s-5); }
+  .anfrage-block { padding: var(--s-4) var(--s-3); }
+  .fuss-raster > p { grid-column: 1 / -1 !important; justify-self: start !important; }
+}
