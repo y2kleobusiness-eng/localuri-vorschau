@@ -1,0 +1,287 @@
+/* Nord Süd Bike & Outdoor Shop · L5 Schaufenster · H6 Zustandswechsel Velo ↔ Ski & Board */
+:root {
+  --gelb: #FFCC01;
+  --warmweiss: #FEF9F6;
+  --anthrazit: #273333;
+  --kuehlweiss: #EEF2F1;
+  --tinte: #1B2222;
+  --nebel: #DCE4E2;
+
+  --schrift-titel: "Cabinet Grotesk", "Arial Narrow", Arial, sans-serif;
+  --schrift-text: "Switzer", Arial, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --umruesten: 0.6s;
+  --breite: 1360px;
+  --radius: 2px;
+
+  /* Velo-Zustand: Hausgelb als Fläche auf Warmweiss */
+  --bg: var(--warmweiss);
+  --fg: var(--tinte);
+  --flaeche: var(--gelb);
+  --auf-flaeche: var(--tinte);
+  --gegen: var(--anthrazit);
+  --auf-gegen: #F3F6F5;
+  --akzent: var(--tinte);
+  --auf-akzent: var(--gelb);
+  --knopf: var(--tinte);
+  --auf-knopf: var(--gelb);
+  --zettel-total: var(--gelb);
+  --ph: #e9e2d6;
+}
+/* Ski-&-Board-Zustand: Anthrazitgrün mit kühlem Weiss, Gelb nur Akzent */
+html[data-zustand="winter"] {
+  --bg: var(--kuehlweiss);
+  --flaeche: var(--anthrazit);
+  --auf-flaeche: #F3F6F5;
+  --gegen: var(--nebel);
+  --auf-gegen: var(--tinte);
+  --akzent: var(--anthrazit);
+  --auf-akzent: var(--gelb);
+  --knopf: var(--gelb);
+  --auf-knopf: var(--tinte);
+  --ph: #d5dcda;
+}
+html[data-zustand="velo"] .nur-winter, html[data-zustand="winter"] .nur-velo { display: none !important; }
+
+body { font-weight: 400; font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); line-height: 1.55; transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease); }
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; }
+.titel-gross { font-size: clamp(2.4rem, 1.4rem + 4.2vw, 5.4rem); max-width: 14ch; }
+.lead { font-size: clamp(1.06rem, 1rem + 0.3vw, 1.25rem); max-width: 34em; }
+.klein, figcaption { font-size: 0.875rem; }
+figcaption { margin-top: 0.6rem; color: var(--gedaempft); }
+.huelle { width: min(100% - 2 * var(--rand), var(--breite)); }
+a { text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+.flaeche-uebergang { transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease); }
+
+/* ---------- Knöpfe ---------- */
+.knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.4rem; font-weight: 600; font-size: 1rem; text-decoration: none; border-radius: 999px; transition: transform 0.25s var(--ease), background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease); white-space: nowrap; }
+.knopf-voll { background: var(--knopf); color: var(--auf-knopf); }
+.knopf-voll:hover { transform: translateY(-2px); text-decoration: none; }
+.knopf-linie { box-shadow: inset 0 0 0 2px currentColor; }
+.knopf-linie:hover { background: currentColor; text-decoration: none; }
+.knopf-linie:hover { color: inherit; box-shadow: inset 0 0 0 2px currentColor, 0 0 0 0 transparent; background: color-mix(in oklab, currentColor 12%, transparent); }
+.knopf:focus-visible, .wort:focus-visible, .umruest:focus-visible, .mini-schalter button:focus-visible, .zettel-liste button:focus-visible { outline: 3px solid var(--knopf); outline-offset: 3px; }
+.hero .knopf-voll:focus-visible { outline-color: var(--auf-flaeche); }
+
+/* ---------- Kopf ---------- */
+.kopf { position: sticky; top: 0; z-index: 40; background: var(--flaeche); color: var(--auf-flaeche); transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease), box-shadow 0.3s; }
+.kopf.gescrollt { box-shadow: 0 1px 0 color-mix(in oklab, var(--auf-flaeche) 18%, transparent); }
+.kopf-innen { display: flex; align-items: center; gap: clamp(1rem, 2vw, 2.5rem); width: min(100% - 2 * var(--rand), var(--breite)); margin-inline: auto; min-height: 72px; }
+.marke { display: grid; text-decoration: none; line-height: 1; }
+.marke-gross { font-family: var(--schrift-titel); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; text-transform: uppercase; }
+.marke-klein { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
+.kopf-nav { display: flex; gap: 1.6rem; margin-left: auto; font-weight: 500; }
+.kopf-nav a { text-decoration: none; padding: 0.6rem 0; }
+.kopf-nav a:hover { text-decoration: underline; }
+.mini-schalter { display: flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px currentColor; }
+.mini-schalter button { min-height: 38px; padding: 0 0.9rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; transition: background-color 0.3s var(--ease), color 0.3s var(--ease); }
+html[data-zustand="velo"] .mini-schalter [data-wahl="velo"], html[data-zustand="winter"] .mini-schalter [data-wahl="winter"] { background: var(--auf-flaeche); color: var(--flaeche); }
+.kopf-cta { min-height: 44px; }
+
+/* ---------- Hero: der Titel ist der Schalter ---------- */
+.hero { background: var(--flaeche); color: var(--auf-flaeche); transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease); padding-top: clamp(1.25rem, 3vw, 2.5rem); }
+.hero-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; align-items: end; }
+.hero-ort { grid-column: 1 / -1; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.schalter-titel { grid-column: 1 / span 8; display: grid; grid-template-columns: auto 1fr; align-items: center; justify-items: start; font-size: clamp(3.2rem, 0.9rem + 10.2vw, 10.6rem); line-height: 0.86; letter-spacing: -0.045em; }
+.wort { font: inherit; letter-spacing: inherit; line-height: inherit; color: inherit; text-align: left; white-space: nowrap; padding: 0.02em 0; position: relative; transition: color var(--umruesten) var(--ease), -webkit-text-stroke-color var(--umruesten) var(--ease), opacity 0.3s; }
+/* Zustand kommt vom html-Attribut (steht vor dem ersten Bild fest), darum kein Farbwechsel beim Laden */
+html[data-zustand="velo"] .wort[data-wahl="winter"], html[data-zustand="winter"] .wort[data-wahl="velo"] { color: transparent; -webkit-text-stroke: clamp(1.5px, 0.2vw, 2.5px) var(--auf-flaeche); cursor: pointer; }
+html[data-zustand="velo"] .wort[data-wahl="winter"]:hover, html[data-zustand="winter"] .wort[data-wahl="velo"]:hover { color: color-mix(in oklab, var(--auf-flaeche) 16%, transparent); }
+.wort[aria-pressed="true"] { cursor: default; }
+.schalter-titel .wort[data-wahl="winter"] { grid-column: 1 / -1; }
+/* Der kleine Hebel neben dem Titel: macht den Schalter auffindbar, auch auf dem Handy */
+.umruest { display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; padding: 0 1.15em 0 0.9em; margin-left: clamp(0.75rem, 1.6vw, 1.75rem); background: transparent; border: 0; border-radius: 999px; box-shadow: inset 0 0 0 1.5px currentColor; font-family: var(--schrift-text); font-weight: 600; font-size: 0.78rem; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; color: inherit; cursor: pointer; transition: background-color 0.3s var(--ease), color 0.3s var(--ease); }
+.umruest svg { width: 1.3em; height: 1.3em; }
+.umruest:hover { background: var(--auf-flaeche); color: var(--flaeche); }
+html[data-zustand="winter"] .wort[data-wahl="winter"] { color: var(--gelb); }
+.hero-text { grid-column: 9 / -1; padding-bottom: 0.9rem; }
+.kernsatz { font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+.hero-unter { margin-top: 0.9rem; max-width: 30em; }
+.knoepfe { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.4rem; }
+.umruest-tipp { margin-top: 1rem; font-size: 0.82rem; opacity: 0.8; }
+.hero-bild { margin-top: clamp(1.2rem, 2.5vw, 2rem); }
+.hero-bild-rahmen { position: relative; height: clamp(300px, 44vh, 470px); overflow: hidden; background: var(--ph); }
+.hero-bild-rahmen picture { position: absolute; inset: 0; background: none; }
+.hero-bild-rahmen img { width: 100%; height: 100%; object-fit: cover; }
+.bild-velo img { object-position: 60% 62%; }
+.bild-winter img { object-position: 50% 45%; }
+html[data-zustand="velo"] .bild-winter, html[data-zustand="winter"] .bild-velo { visibility: hidden; }
+.hero-bild figcaption { color: inherit; opacity: 0.75; padding: 0.6rem 0 0.9rem; margin: 0 auto; }
+
+/* ---------- Infostreifen ---------- */
+.info { border-bottom: 1px solid var(--linie); }
+.info-raster { display: grid; grid-template-columns: repeat(4, 1fr); }
+.info-raster > div { padding: 1.2rem 1.4rem 1.3rem 0; }
+.info-raster > div + div { padding-left: 1.4rem; border-left: 1px solid var(--linie); }
+.info dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gedaempft); }
+.info dd { margin-top: 0.25rem; font-weight: 500; }
+.live { font-variant-numeric: tabular-nums; }
+.live::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; margin-right: 0.45em; background: #9aa3a3; vertical-align: 0.05em; }
+.live[data-offen="ja"]::before { background: #1f9d55; }
+.live[data-offen="bald"]::before { background: #d98a00; }
+
+/* ---------- Schaufenster ---------- */
+.laden { padding-block: clamp(4.5rem, 3rem + 6vw, 9rem) clamp(4rem, 3rem + 4vw, 7rem); }
+.abschnitt-kopf { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; align-items: end; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.abschnitt-kopf h2 { grid-column: 1 / span 7; }
+.abschnitt-kopf .lead { grid-column: 8 / -1; }
+.fenster { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+.fenster figure { margin: 0; }
+.fenster img, .werkstatt-bild img, .gutschein img, .winter-bild img { width: 100%; height: 100%; object-fit: cover; }
+.fenster-a { grid-column: 1 / span 8; grid-row: 1 / span 2; }
+.fenster-a picture { aspect-ratio: 4 / 3; }
+.fenster-b { grid-column: 9 / -1; }
+.fenster-c { grid-column: 9 / -1; }
+.fenster-b picture, .fenster-c picture { aspect-ratio: 4 / 3; }
+.fenster-marken { grid-column: 1 / span 8; }
+.marken-titel { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gedaempft); }
+.marken { font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.7rem); line-height: 1.25; letter-spacing: -0.01em; margin-top: 0.3rem; text-wrap: balance; }
+.kleider { margin-top: clamp(1.5rem, 3vw, 2.5rem); padding-top: 1.2rem; border-top: 1px solid var(--linie); }
+
+.fenster-winter { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; background: var(--anthrazit); color: #F3F6F5; padding: clamp(1.5rem, 4vw, 3.5rem); }
+.sortiment { grid-column: 1 / span 8; list-style: none; padding: 0; font-family: var(--schrift-titel); font-weight: 800; font-size: clamp(2.2rem, 1rem + 5vw, 5.2rem); line-height: 0.98; letter-spacing: -0.035em; }
+.sortiment li { padding-block: 0.08em; border-bottom: 1px solid rgba(243, 246, 245, 0.16); }
+.sortiment li:last-child { color: var(--gelb); border-bottom: 0; }
+.winter-seite { grid-column: 9 / -1; display: grid; align-content: space-between; gap: 1.5rem; }
+.winter-bild { margin: 0; max-width: 260px; }
+.winter-bild picture { aspect-ratio: 567 / 673; }
+.fenster-winter figcaption, .fenster-winter .marken-titel { color: rgba(243, 246, 245, 0.72); }
+
+/* ---------- Werkstatt + Auftragszettel ---------- */
+.werkstatt { background: var(--gegen); color: var(--auf-gegen); padding-block: clamp(4.5rem, 3rem + 5vw, 8rem); transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease); --gedaempft: color-mix(in oklab, var(--auf-gegen) 70%, var(--gegen)); --linie: color-mix(in oklab, var(--auf-gegen) 18%, var(--gegen)); }
+.werkstatt-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: clamp(2rem, 4vw, 3.5rem); }
+.werkstatt-kopf { grid-column: 1 / span 5; align-self: end; }
+.werkstatt-kopf .lead { margin-top: 1.2rem; }
+.werkstatt-bild { grid-column: 6 / -1; margin: 0 calc(-1 * var(--rand)) 0 0; }
+.werkstatt-bild picture { aspect-ratio: 16 / 9; }
+.werkstatt-bild figcaption { padding-right: var(--rand); }
+.termin { grid-column: 1 / -1; display: grid; grid-template-columns: 5fr 7fr; gap: 1.5rem; align-items: start; scroll-margin-top: 90px; }
+
+.zettel { background: #FBFAF6; color: var(--tinte); padding: 1.5rem 1.5rem 1.2rem; position: relative; box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.5); font-variant-numeric: tabular-nums; --linie: #d9d6cc; }
+.zettel::before, .zettel::after { content: ""; position: absolute; left: 0; right: 0; height: 8px; background: radial-gradient(circle at 6px 0, transparent 4px, #FBFAF6 4.5px) 0 0 / 12px 8px repeat-x; }
+.zettel::before { top: -8px; transform: scaleY(-1); }
+.zettel::after { bottom: -8px; }
+.zettel-kopf { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 0.8rem; border-bottom: 2px solid var(--tinte); }
+.zettel-hilfe { font-size: 0.875rem; color: #545b5b; margin-top: 0.8rem; }
+.zettel-liste { list-style: none; padding: 0; margin-top: 0.4rem; }
+.zettel-liste li + li { border-top: 1px dashed var(--linie); }
+.zettel-liste button { display: grid; grid-template-columns: 22px 1fr auto; gap: 0.75rem; align-items: center; width: 100%; min-height: 48px; text-align: left; padding: 0.35rem 0.2rem; transition: background-color 0.2s var(--ease); }
+.zettel-liste button:hover { background: rgba(39, 51, 51, 0.06); }
+.zettel-liste .box { width: 20px; height: 20px; border: 2px solid var(--tinte); border-radius: 3px; position: relative; transition: background-color 0.2s var(--ease); }
+.zettel-liste [aria-pressed="true"] .box { background: var(--tinte); }
+.zettel-liste [aria-pressed="true"] .box::after { content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid var(--gelb); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.zettel-liste [aria-pressed="true"] .n { font-weight: 600; }
+.zettel-liste .p { white-space: nowrap; }
+.zettel-total { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 0.6rem; padding: 0.8rem 0.9rem; background: var(--tinte); color: #F3F6F5; }
+.zettel-total span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.zettel-total output { white-space: nowrap; font-family: var(--schrift-titel); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.01em; color: var(--gelb); }
+.zettel-total output.leer { font-family: var(--schrift-text); font-weight: 400; font-size: 1rem; color: #c9d1d0; }
+.zettel-fuss { margin-top: 0.8rem; font-size: 0.875rem; color: #545b5b; }
+
+.termin-form { background: var(--bg); color: var(--fg); padding: clamp(1.25rem, 3vw, 2.2rem); --gedaempft: color-mix(in oklab, var(--fg) 62%, var(--bg)); --linie: color-mix(in oklab, var(--fg) 14%, var(--bg)); --akzent: var(--tinte); --auf-akzent: var(--gelb); transition: background-color var(--umruesten) var(--ease); }
+.termin-titel { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); margin-bottom: 1.2rem; }
+.termin-hinweis { margin-top: 1rem; font-size: 0.875rem; color: var(--gedaempft); }
+.termin-form .anf-senden { background: var(--tinte); color: var(--gelb); border-radius: 999px; font-weight: 600; }
+
+/* ---------- Miete ---------- */
+.miete { background: var(--flaeche); color: var(--auf-flaeche); padding-block: clamp(3.5rem, 2.5rem + 4vw, 6.5rem); transition: background-color var(--umruesten) var(--ease), color var(--umruesten) var(--ease); }
+.miete-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 1.5rem; align-items: end; }
+.miete h2 { grid-column: 1 / span 4; }
+.preise { grid-column: 5 / -1; border-collapse: collapse; font-variant-numeric: tabular-nums; width: 100%; }
+.preise th, .preise td { text-align: left; padding: 0.4rem 0; }
+.preise thead th { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 2px solid currentColor; }
+.preise tbody th { font-family: var(--schrift-titel); font-weight: 800; font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.6rem); letter-spacing: -0.02em; }
+.preise tbody td { font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.6rem, 1.1rem + 2vw, 3.2rem); letter-spacing: -0.02em; white-space: nowrap; }
+.preise tbody tr + tr { border-top: 1px solid color-mix(in oklab, currentColor 25%, transparent); }
+html[data-zustand="winter"] .preise tbody td { color: var(--gelb); }
+.miete-fuss { grid-column: 5 / -1; }
+
+/* ---------- Team ---------- */
+.team { padding-block: clamp(4.5rem, 3rem + 5vw, 8.5rem); }
+.team-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 2rem; }
+.team-raster > header { grid-column: 1 / span 5; }
+.zitat { margin-top: 1.4rem; font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem); line-height: 1.15; max-width: 20ch; }
+.leute { grid-column: 7 / -1; list-style: none; padding: 0; border-top: 2px solid var(--fg); }
+.leute li { display: grid; grid-template-columns: 1.2fr 1.5fr 7.5rem; gap: 1rem; align-items: baseline; padding: 0.95rem 0; border-bottom: 1px solid var(--linie); }
+.leute .name { font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.2rem, 1rem + 0.6vw, 1.5rem); letter-spacing: -0.01em; }
+.leute .rolle { color: var(--gedaempft); }
+.leute .seit { font-variant-numeric: tabular-nums; font-size: 0.875rem; white-space: nowrap; text-align: right; }
+
+/* ---------- Besuch ---------- */
+.besuch { padding-block: clamp(3.5rem, 2.5rem + 4vw, 7rem) clamp(4.5rem, 3rem + 5vw, 8rem); border-top: 1px solid var(--linie); }
+.besuch-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 2rem; align-items: start; }
+.besuch h2 { grid-column: 1 / -1; }
+.zeiten { grid-column: 1 / span 5; }
+.live-gross { font-family: var(--schrift-titel); font-weight: 700; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); }
+.zeiten-liste { margin-top: 1.2rem; font-variant-numeric: tabular-nums; }
+.zeiten-liste > div { display: grid; gap: 0.15rem; padding: 0.75rem 0; border-top: 1px solid var(--linie); }
+.zeiten-liste dt { font-weight: 600; }
+.zeiten .klein { margin-top: 0.8rem; color: var(--gedaempft); }
+.adresse { grid-column: 6 / span 4; font-style: normal; display: grid; gap: 1rem; }
+.sozial { font-size: 0.95rem; }
+.gutschein { grid-column: 10 / -1; margin: 0; max-width: 300px; justify-self: end; }
+.gutschein picture { aspect-ratio: 1; }
+
+/* ---------- Fuss ---------- */
+.fuss { background: var(--tinte); color: #E7ECEB; padding-block: clamp(3.5rem, 3rem + 3vw, 6rem) clamp(5rem, 4rem + 3vw, 7rem); --linie: rgba(231, 236, 235, 0.16); }
+.fuss-raster { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.5rem; row-gap: 2.5rem; }
+.fuss-cta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--linie); }
+.fuss-gross { font-family: var(--schrift-titel); font-weight: 800; font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); line-height: 0.95; letter-spacing: -0.04em; color: var(--gelb); }
+.fuss .knopf-voll { background: var(--gelb); color: var(--tinte); }
+.fuss-text { grid-column: 1 / span 8; display: grid; gap: 0.6rem; font-size: 0.9rem; color: #c3ccca; }
+.nachweis { font-size: 0.82rem; }
+
+/* ---------- Handy ---------- */
+@media (max-width: 1100px) {
+  .kopf-nav { display: none; }
+  .mini-schalter { margin-left: auto; }
+}
+@media (max-width: 900px) {
+  .hero-raster, .abschnitt-kopf, .fenster, .fenster-winter, .werkstatt-raster, .miete-raster, .team-raster, .besuch-raster, .fuss-raster { grid-template-columns: 1fr; }
+  .hero-raster > *, .abschnitt-kopf > *, .fenster > *, .fenster-winter > *, .werkstatt-raster > *, .miete-raster > *, .team-raster > *, .besuch-raster > *, .fuss-raster > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .info-raster { grid-template-columns: 1fr 1fr; }
+  .info-raster > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .info-raster > div:nth-child(n+3) { border-top: 1px solid var(--linie); }
+  .fenster { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .fenster-b { grid-column: 1 / 2 !important; }
+  .fenster-c { grid-column: 2 / 3 !important; }
+  .fenster-b picture, .fenster-c picture { aspect-ratio: 1; }
+  .termin { grid-template-columns: 1fr; }
+  .werkstatt-bild { margin: 0 calc(-1 * var(--rand)); }
+  .werkstatt-bild figcaption { padding-inline: var(--rand); }
+  .gutschein { justify-self: start; max-width: 240px; }
+  .abschnitt-kopf { row-gap: 1rem; }
+  .preise { margin-top: 0.5rem; }
+}
+@media (max-width: 760px) {
+  .kopf-cta { display: none; }
+  .kopf-innen { min-height: 60px; gap: 0.75rem; }
+  .marke-gross { font-size: 1.2rem; }
+  .marke-klein { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .mini-schalter button { padding: 0 0.7rem; font-size: 0.82rem; min-height: 40px; }
+  .hero-ort { font-size: 0.72rem; }
+  .schalter-titel { font-size: clamp(3rem, 16.5vw, 5.4rem); }
+  .hero-text { padding-bottom: 0.4rem; margin-top: 1.2rem; }
+  .kernsatz { font-size: 1.35rem; }
+  .hero-unter { display: none; }
+  .umruest-tipp { display: none; }
+  .knoepfe { margin-top: 1rem; }
+  .knoepfe .knopf { flex: 1 1 auto; }
+  .hero-bild { margin-top: 1rem; }
+  .hero-bild-rahmen { height: 292px; }
+  .hero .knopf-linie { display: none; } /* Anrufen liegt auf dem Handy in der Kontaktleiste */
+  .zettel { padding: 1.2rem 1rem 1rem; }
+  .zettel-kopf { font-size: 0.66rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .zettel-liste button { font-size: 0.95rem; gap: 0.6rem; }
+  .leute li { grid-template-columns: 1fr auto; }
+  .leute .rolle { grid-column: 1 / -1; grid-row: 2; font-size: 0.95rem; }
+  .info-raster > div { padding: 0.9rem 0.8rem 0.9rem 0; }
+  .info-raster > div + div { padding-left: 0.8rem; }
+  .info-raster > div:nth-child(3) { padding-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
+.zeiten .oz-status { display: none; }

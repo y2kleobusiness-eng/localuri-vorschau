@@ -1,0 +1,61 @@
+/* Kleine Bausteine: Öffnungszeiten, Karte, Galerie/Lightbox, Kontaktleiste. Nur Tokens aus basis.css. */
+
+/* ---------- Öffnungszeiten ---------- */
+.oz-status { display: inline-flex; align-items: center; gap: 0.55em; font-weight: 500; margin-bottom: var(--s-2); }
+.oz-punkt { width: 0.6em; height: 0.6em; border-radius: 50%; background: #9a9a9a; }
+.oz-status[data-offen="ja"] .oz-punkt { background: #2f8f4e; box-shadow: 0 0 0 0.25em color-mix(in oklab, #2f8f4e 22%, transparent); }
+.oz-status[data-offen="bald"] .oz-punkt { background: #c98a1b; }
+.oz-liste { display: grid; gap: 2px; }
+.oz-zeile { display: flex; justify-content: space-between; gap: var(--s-3); padding: 0.45em 0; border-bottom: 1px solid var(--linie); font-variant-numeric: tabular-nums; }
+.oz-zeile dd { margin: 0; text-align: right; }
+.oz-zeile[aria-current] { font-weight: 600; }
+
+/* ---------- Karte / Anfahrt (statisches Bild + Link, kein eingebettetes Google) ---------- */
+.karte { position: relative; display: block; overflow: hidden; border-radius: var(--radius); background: var(--ph); text-decoration: none; }
+.karte img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.karte:hover img { transform: scale(1.03); }
+.karte-nadel { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -22px 0 0 -11px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--akzent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--akzent) 25%, transparent), 0 6px 14px rgba(0, 0, 0, 0.25); }
+.karte-knopf { position: absolute; left: 12px; bottom: 12px; padding: 10px 16px; border-radius: 999px; background: var(--bg); color: var(--fg); font-weight: 500; font-size: var(--t--1); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14); }
+.karte-quelle { position: absolute; right: 6px; top: 6px; padding: 2px 6px; font-size: 10px; background: rgba(255, 255, 255, 0.8); color: #333; border-radius: 3px; }
+
+/* ---------- Galerie ---------- */
+.galerie { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: var(--s-2); }
+.galerie a { display: block; overflow: hidden; border-radius: var(--radius); background: var(--ph); cursor: zoom-in; }
+.galerie img { width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1s var(--ease), opacity 0.9s var(--ease); }
+.galerie a:hover img { transform: scale(1.035); }
+
+/* ---------- Lightbox ---------- */
+html.lb-offen { overflow: hidden; }
+.lightbox { width: 100vw; height: 100dvh; max-width: none; max-height: none; padding: 0; border: 0; background: rgba(12, 11, 10, 0.94); color: #fff; }
+.lightbox::backdrop { background: rgba(12, 11, 10, 0.6); }
+.lightbox[open] { display: grid; place-items: center; animation: lb-ein 0.35s var(--ease); }
+@keyframes lb-ein { from { opacity: 0; } }
+.lb-figur { display: grid; gap: 10px; justify-items: center; padding: 56px 16px; max-width: 100%; }
+.lb-bild { max-width: min(100%, 1600px); max-height: calc(100dvh - 140px); width: auto; object-fit: contain; opacity: 0; transition: opacity 0.4s var(--ease); }
+.lb-bild.da { opacity: 1; }
+.lb-text { font-size: var(--t--1); opacity: 0.8; text-align: center; }
+.lb-zahl { position: absolute; left: 16px; top: 16px; font-size: var(--t--1); opacity: 0.7; font-variant-numeric: tabular-nums; }
+.lb-knopf { position: absolute; width: 48px; height: 48px; border-radius: 50%; color: #fff; font-size: 1.8rem; line-height: 1; background: rgba(255, 255, 255, 0.08); transition: background 0.2s; }
+.lb-knopf:hover { background: rgba(255, 255, 255, 0.18); }
+.lb-zu { right: 12px; top: 12px; }
+.lb-zurueck { left: 12px; top: 50%; translate: 0 -50%; }
+.lb-vor { right: 12px; top: 50%; translate: 0 -50%; }
+
+/* ---------- Kontaktleiste (nur Handy) ---------- */
+.kontaktleiste { display: none; }
+@media (max-width: 760px) {
+  :root { --leiste-h: 64px; }
+  body { padding-bottom: calc(var(--leiste-h) + env(safe-area-inset-bottom, 0px)); }
+  .kontaktleiste {
+    position: fixed; z-index: 95; left: 0; right: 0; bottom: 0;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    height: calc(var(--leiste-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--linie);
+  }
+  .kontaktleiste a { display: grid; place-content: center; justify-items: center; gap: 3px; text-decoration: none; font-size: 12px; font-weight: 500; }
+  .kontaktleiste a + a { border-left: 1px solid var(--linie); }
+  .kontaktleiste svg { width: 22px; height: 22px; }
+  .kontaktleiste .haupt { background: var(--akzent); color: var(--auf-akzent); }
+}
