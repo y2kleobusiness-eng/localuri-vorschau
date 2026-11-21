@@ -1,0 +1,292 @@
+/* Bissig AG Küchen und Möbel · Layoutsystem "Showroom": Bühnen aus echten Nischen, Schilder statt Karten. */
+:root {
+  --papier: #EDE3D1;      /* heller Sand, Lesefläche */
+  --sand: #D8C4A1;        /* Sand, warm (aus Hausfarbe #ae956f) */
+  --sand-tief: #AE956F;   /* Hausfarbe Koch Erlebnis */
+  --bordeaux: #94264A;    /* Hausfarbe Küchen */
+  --wein: #3B1020;        /* tiefe Bühnenfläche aus Bordeaux */
+  --wein-2: #4A1729;
+  --tuerkis: #31B4BF;     /* Hausfarbe Möbel, nur Punkt/Linie */
+  --kohle: #242321;
+
+  --bg: var(--papier);
+  --fg: var(--kohle);
+  --akzent: var(--bordeaux);
+  --auf-akzent: #fff;
+  --gedaempft: #5C564C;
+  --linie: color-mix(in oklab, var(--kohle) 18%, transparent);
+  --ph: #d9ccb6;
+
+  --schrift-text: "Host Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --schrift-titel: "Newsreader", Georgia, "Times New Roman", serif;
+  --breite: 1360px;
+  --radius: 2px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --kopf-h: 76px;
+}
+
+body { font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem); line-height: 1.55; font-optical-sizing: auto; }
+h1, h2, h3 { font-family: var(--schrift-titel); font-weight: 340; letter-spacing: -0.02em; font-optical-sizing: auto; }
+h2 { font-size: clamp(2.1rem, 1.3rem + 3.2vw, 4.25rem); line-height: 1.02; letter-spacing: -0.025em; }
+h3 { font-size: clamp(1.35rem, 1.1rem + 1vw, 2rem); line-height: 1.1; }
+p { max-width: 62ch; }
+a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-color: var(--bordeaux); }
+.klein { font-size: 0.875rem; color: var(--gedaempft); }
+
+/* Etikett: nur wo es Information trägt */
+.info-k, .schild-nr {
+  display: block; font-family: var(--schrift-text); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--gedaempft);
+}
+
+/* Knöpfe */
+.knopf {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 48px; padding: 0.75em 1.35em; border-radius: 999px;
+  font-weight: 600; font-size: 0.975rem; text-decoration: none; line-height: 1.1;
+  transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
+}
+.knopf-voll { background: var(--bordeaux); color: #fff; }
+.knopf-voll:hover { background: var(--wein-2); }
+.knopf-linie { border: 1.5px solid currentColor; }
+.knopf-linie:hover { background: var(--kohle); color: var(--papier); border-color: var(--kohle); }
+.knopf-hell { background: var(--papier); color: var(--wein); }
+.knopf-hell:hover { background: #fff; }
+.knopf:active { transform: translateY(1px); }
+.knopf-reihe { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.merk-zahl {
+  display: inline-grid; place-items: center; min-width: 1.5em; height: 1.5em; padding: 0 .35em;
+  border-radius: 999px; background: var(--tuerkis); color: var(--kohle); font-size: 0.8em; font-variant-numeric: tabular-nums;
+}
+.merk-zahl[hidden] { display: none; }
+
+/* ---------- Kopf ---------- */
+.kopf {
+  position: fixed; inset: 0 0 auto; z-index: 50; height: var(--kopf-h);
+  display: flex; align-items: center; gap: clamp(1rem, 2vw, 2.5rem);
+  padding-inline: var(--rand);
+  background: color-mix(in oklab, var(--papier) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linie);
+  transition: transform .45s var(--ease);
+}
+.kopf.weg { transform: translateY(-100%); }
+.kopf-logo img { height: 46px; width: auto; }
+.kopf-nav { display: flex; gap: clamp(1rem, 2vw, 2rem); margin-left: auto; }
+.kopf-nav a, .kopf-tel { font-size: 0.95rem; text-decoration: none; padding-block: 0.6rem; }
+.kopf-nav a:hover, .kopf-tel:hover { text-decoration: underline; }
+.kopf-tel { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kopf-cta { min-height: 44px; padding-block: 0.55em; }
+
+/* ---------- Hero ---------- */
+.hero { padding-top: calc(var(--kopf-h) + clamp(2rem, 5vw, 4.5rem)); }
+.hero-kopf { display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem, 2.5vw, 2rem); align-items: end; }
+.hero-titel {
+  font-size: clamp(3rem, 1.4rem + 6.6vw, 8.6rem); line-height: 0.94; letter-spacing: -0.035em;
+  font-weight: 300; max-width: 11ch; overflow-wrap: normal; hyphens: manual;
+}
+.hero-neben { display: grid; gap: 1.25rem; max-width: 34rem; }
+.hero-unter { font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); line-height: 1.45; }
+.hero-bild { position: relative; margin-top: clamp(2rem, 4vw, 3.5rem); margin-inline: var(--rand); }
+.hero-bild picture, .hero-bild img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 62%; }
+.schild {
+  position: absolute; left: clamp(0.75rem, 2vw, 1.75rem); bottom: clamp(0.75rem, 2vw, 1.75rem);
+  background: var(--papier); color: var(--kohle);
+  padding: 0.7rem 0.95rem; font-size: 0.875rem; line-height: 1.35; max-width: min(30rem, calc(100% - 1.5rem));
+  border-left: 3px solid var(--bordeaux);
+}
+.schild .schild-nr { margin-bottom: 0.15rem; font-size: 0.6875rem; }
+
+@media (min-width: 1000px) {
+  .hero-kopf { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+  .hero-neben { padding-bottom: 0.9rem; }
+}
+
+/* ---------- Infostreifen ---------- */
+.info { background: var(--wein); color: var(--papier); margin-top: clamp(0px, 0px, 0px); }
+.info .info-k { color: color-mix(in oklab, var(--papier) 70%, var(--wein)); }
+.info-reihe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 2rem; padding-block: 1.6rem; }
+.info-reihe > div { display: grid; gap: 0.25rem; align-content: start; font-variant-numeric: tabular-nums; }
+.info-reihe a { color: inherit; }
+@media (max-width: 860px) { .info-reihe { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Showroom (Signatur) ---------- */
+.showroom { background: var(--wein); color: var(--papier); padding-top: clamp(5rem, 3rem + 7vw, 9rem); }
+.showroom-intro { display: grid; gap: 1.5rem; padding-bottom: clamp(3rem, 5vw, 5rem); }
+.showroom-intro h2 { max-width: 14ch; }
+.showroom-intro p { color: color-mix(in oklab, var(--papier) 82%, var(--wein)); }
+@media (min-width: 1000px) {
+  .showroom-intro { grid-template-columns: 1.3fr 1fr; align-items: end; }
+}
+.buehne { position: relative; height: 230svh; }
+.buehne-sticky {
+  position: sticky; top: 0; height: 100svh; display: grid; place-items: center;
+  padding: calc(var(--kopf-h) * 0.5) var(--rand) var(--rand);
+}
+.buehne-bild { position: relative; width: 100%; height: 100%; max-width: 1440px; overflow: hidden; }
+.buehne-bild picture, .buehne-bild img { width: 100%; height: 100%; object-fit: cover; }
+.buehne-bild img { will-change: clip-path; }
+.schild-gross {
+  left: calc(var(--rand) + clamp(0.75rem, 2vw, 1.75rem)); bottom: calc(var(--rand) + clamp(0.75rem, 2vw, 1.75rem));
+  padding: 1.1rem 1.25rem 1.2rem; max-width: 23rem; display: grid; gap: 0.35rem;
+}
+.schild-gross h3 { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); }
+.schild-gross p { font-size: 0.95rem; color: var(--gedaempft); }
+.merken {
+  justify-self: start; margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.6rem;
+  min-height: 44px; padding: 0.5rem 1rem 0.5rem 0.6rem; border-radius: 999px;
+  border: 1.5px solid var(--kohle); font-weight: 600; font-size: 0.9rem;
+  transition: background-color .25s var(--ease), color .25s var(--ease);
+}
+.merken::before { content: ""; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--muster); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+.merken:hover { background: var(--kohle); color: var(--papier); }
+.merken[aria-pressed="true"] { background: var(--kohle); color: var(--papier); }
+.merken[aria-pressed="true"]::after { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--tuerkis); }
+.showroom-schluss { padding-block: clamp(4rem, 3rem + 5vw, 8rem); display: grid; gap: 1.25rem; justify-items: start; }
+.gross-satz { font-family: var(--schrift-titel); font-weight: 300; font-size: clamp(2rem, 1.2rem + 3.6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.025em; max-width: 18ch; }
+.quelle { color: color-mix(in oklab, var(--papier) 78%, var(--wein)); }
+
+/* ---------- Möbel ---------- */
+.moebel { padding-block: clamp(5rem, 3rem + 7vw, 10rem) clamp(4rem, 3rem + 4vw, 7rem); }
+.moebel-raster { display: grid; gap: clamp(1.25rem, 2vw, 2rem); }
+.moebel-text { display: grid; gap: 1.25rem; align-content: start; }
+.moebel-raster figure { position: relative; }
+.moebel-raster figure img { width: 100%; height: 100%; object-fit: cover; }
+.moebel-gross img { aspect-ratio: 3 / 2; }
+.moebel-a img { aspect-ratio: 4 / 5; }
+.moebel-b img { aspect-ratio: 4 / 5; }
+.moebel-c img { aspect-ratio: 3 / 2; }
+@media (min-width: 1000px) {
+  .moebel-raster { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .moebel-text { grid-column: 1 / span 4; padding-top: 0.5rem; }
+  .moebel-gross { grid-column: 5 / span 8; }
+  .moebel-a { grid-column: 1 / span 4; margin-top: -6rem; align-self: start; }
+  .moebel-b { grid-column: 6 / span 3; margin-top: 3rem; align-self: start; }
+  .moebel-c { grid-column: 9 / span 4; margin-top: 3rem; align-self: start; }
+}
+@media (max-width: 999px) {
+  .moebel-raster { grid-template-columns: 1fr 1fr; }
+  .moebel-text, .moebel-gross, .moebel-c { grid-column: 1 / -1; }
+}
+
+/* ---------- Ablauf ---------- */
+.ablauf { background: var(--sand); padding-block: clamp(5rem, 3rem + 6vw, 9rem); }
+.ablauf-raster { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
+.ablauf-kopf { display: grid; gap: 2rem; align-content: start; }
+.ablauf-kopf h2 { max-width: 19ch; }
+blockquote { border-left: 3px solid var(--bordeaux); padding-left: 1.25rem; }
+blockquote p { font-family: var(--schrift-titel); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem); line-height: 1.3; font-style: italic; font-weight: 350; }
+blockquote footer { margin-top: 0.6rem; font-size: 0.875rem; color: var(--gedaempft); }
+.ablauf-bild { position: relative; }
+.ablauf-bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 62% 50%; }
+.schritte { list-style: none; padding: 0; display: grid; gap: 0; counter-reset: s; }
+.schritte li { display: grid; grid-template-columns: 3rem 1fr; gap: 0.25rem 1rem; padding-block: 1.4rem; border-top: 1px solid var(--linie); }
+.schritte li:last-child { border-bottom: 1px solid var(--linie); }
+.schritt-nr { grid-row: span 2; font-family: var(--schrift-titel); font-size: 2.2rem; line-height: 1; color: var(--bordeaux); font-variant-numeric: tabular-nums; }
+.schritte h3 { font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.65rem); }
+.schritte p { color: #3f3a33; }
+@media (min-width: 1000px) {
+  .ablauf-raster { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+  .ablauf-kopf { grid-column: 1 / span 6; }
+  .ablauf-bild { grid-column: 8 / span 5; grid-row: span 2; }
+  .schritte { grid-column: 1 / span 6; }
+}
+
+/* ---------- Koch Erlebnis ---------- */
+.koch { padding-block: clamp(5rem, 3rem + 6vw, 9rem); }
+.koch-raster { display: grid; gap: clamp(2rem, 3vw, 3rem); }
+.koch-text { display: grid; gap: 1.25rem; }
+.koch-text h2 { max-width: 14ch; }
+.koch-karten { display: grid; gap: 1.25rem; }
+.koch-karte { display: grid; gap: 0.75rem; align-content: start; padding: 1.5rem 1.5rem 1.6rem; background: #F6F0E4; border-top: 3px solid var(--sand-tief); }
+.koch-karte h3 { font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.1rem); }
+.koch-karte .knopf { justify-self: start; margin-top: 0.5rem; }
+.daten { display: grid; gap: 0; margin-top: 0.25rem; }
+.daten div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; padding-block: 0.55rem; border-top: 1px solid var(--linie); font-variant-numeric: tabular-nums; }
+.daten dt { color: var(--gedaempft); font-size: 0.9rem; }
+.daten dd { margin: 0; }
+.koch-bilder { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 0.75rem; align-items: end; }
+.koch-bilder img { width: 100%; object-fit: cover; }
+.koch-bilder figure:nth-child(1) img { aspect-ratio: 4 / 3; }
+.koch-bilder figure:nth-child(n+2) img { aspect-ratio: 1 / 1; }
+.koch-fuss { color: var(--gedaempft); font-size: 0.95rem; }
+@media (min-width: 1000px) {
+  .koch-raster { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+  .koch-text { grid-column: 1 / span 5; }
+  .koch-bilder { grid-column: 1 / span 5; grid-row: 2; max-width: 34rem; }
+  .koch-karten { grid-column: 7 / span 6; grid-row: 1 / span 3; grid-template-columns: 1fr 1fr; }
+  .koch-fuss { grid-column: 1 / span 5; }
+}
+@media (max-width: 999px) { .koch-bilder figure:nth-child(1) { grid-column: 1 / -1; } .koch-bilder { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Besuch / Anfrage ---------- */
+.besuch { background: var(--wein); color: var(--papier); padding-block: clamp(5rem, 3rem + 6vw, 9rem); }
+.besuch .info-k { color: color-mix(in oklab, var(--papier) 70%, var(--wein)); margin-bottom: 0.4rem; }
+.besuch a { color: inherit; }
+.besuch .klein { color: color-mix(in oklab, var(--papier) 72%, var(--wein)); margin-top: 0.5rem; }
+.besuch-raster { display: grid; gap: clamp(2.5rem, 4vw, 4rem); }
+.besuch-text { display: grid; gap: 1.5rem; align-content: start; }
+.besuch-daten { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; padding-top: 1.5rem; border-top: 1px solid color-mix(in oklab, var(--papier) 22%, transparent); }
+.besuch-form { background: var(--papier); color: var(--kohle); padding: clamp(1.25rem, 3vw, 2.25rem); }
+.besuch-form a { color: var(--bordeaux); }
+.auswahl ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.auswahl li { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.8rem 0.35rem 0.4rem; border-radius: 999px; background: var(--wein-2); font-size: 0.9rem; }
+.auswahl li i { width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--muster); box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+/* Oeffnungszeiten-Baustein auf dunkler Fläche */
+.besuch [data-oeffnungszeiten] { font-variant-numeric: tabular-nums; }
+@media (min-width: 1000px) {
+  .besuch-raster { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .besuch-text { grid-column: 1 / span 5; }
+  .besuch-form { grid-column: 7 / span 6; }
+}
+@media (max-width: 560px) { .besuch-daten { grid-template-columns: 1fr; } }
+
+/* ---------- Fuss ---------- */
+.fuss { background: var(--kohle); color: #E9DFCC; padding-block: clamp(3.5rem, 5vw, 5rem) calc(clamp(3rem, 5vw, 4rem) + var(--leiste-h)); }
+.fuss a { color: inherit; }
+.fuss-raster { display: grid; gap: 2.5rem; }
+.fuss-marke { display: grid; gap: 1rem; justify-items: start; }
+.fuss-marke img { height: 60px; width: auto; filter: brightness(0) invert(0.9) sepia(0.15); }
+.fuss-nachweis { font-size: 0.875rem; color: #BFB4A1; display: grid; gap: 0.75rem; align-content: start; }
+.fuss-nachweis .info-k { color: #BFB4A1; font-family: var(--schrift-text); letter-spacing: 0.12em; }
+@media (min-width: 1000px) { .fuss-raster { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Handy ---------- */
+@media (max-width: 999px) {
+  .kopf-nav, .kopf-tel { display: none; }
+  .kopf-cta { margin-left: auto; }
+}
+@media (max-width: 760px) {
+  :root { --kopf-h: 64px; }
+  .kopf-logo img { height: 38px; }
+  .kopf-cta { display: none; }
+  .hero-titel { font-size: clamp(2.9rem, 1.6rem + 6.4vw, 4rem); max-width: 9ch; }
+  .hero-bild { margin-inline: 0; }
+  .hero-bild picture, .hero-bild img { aspect-ratio: 4 / 5; object-position: 38% 50%; }
+  .buehne { height: 210svh; }
+  .buehne-sticky { padding: calc(var(--kopf-h) + 0.5rem) 0.75rem calc(var(--leiste-h) + 0.75rem); }
+  .schild-gross { left: 1.5rem; right: 1.5rem; bottom: calc(var(--leiste-h) + 1.5rem); max-width: none; padding: 0.9rem 1rem 1rem; }
+  .schild-gross p { display: none; }
+  .moebel-a, .moebel-b { margin: 0; }
+}
+
+/* Ohne Bewegung: Bühnen als ruhige Bilder untereinander */
+@media (prefers-reduced-motion: reduce) {
+  .buehne { height: auto; }
+  .buehne-sticky { position: relative; height: 88svh; }
+}
+
+/* ---------- Finish ---------- */
+/* Schweizer Anführungszeichen über <q>, damit sie nie im Text fehlen */
+q { quotes: "\AB" "\BB" "\2039" "\203A"; }
+.hero-titel em { font-style: italic; font-weight: 300; }
+.hero-bild picture { overflow: hidden; }
+.gross-satz { text-wrap: balance; }
+/* Bühne: Farbfeld in der Küchenfarbe mit dem Namen, das Foto öffnet sich darüber und deckt beides zu */
+.buehne-bild picture { position: relative; z-index: 1; background: none; }
+.buehne-name {
+  position: absolute; z-index: 0; left: clamp(1rem, 3vw, 3rem); right: 1rem; top: clamp(0.9rem, 2.4vw, 2.4rem);
+  font-family: var(--schrift-titel); font-style: italic; font-weight: 300;
+  font-size: clamp(2.5rem, 1.2rem + 6vw, 7.5rem); line-height: 0.95; letter-spacing: -0.03em; color: var(--papier);
+}

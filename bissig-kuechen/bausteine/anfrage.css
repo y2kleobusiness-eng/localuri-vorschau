@@ -1,0 +1,51 @@
+/* Anfrage-Widget: neutral, nutzt nur die Tokens aus basis.css. Jede Seite passt Farben/Formen in site.css an
+   (z. B. .anf-chip[aria-checked="true"], .anf-raster td[aria-selected="true"], .anf-senden). */
+.anfrage { --anf-zelle: clamp(36px, 10vw, 46px); display: grid; gap: var(--s-4); max-width: 34rem; }
+.anf-titel { font-size: var(--t--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--gedaempft); margin-bottom: var(--s-1); }
+.anf-titel small { text-transform: none; letter-spacing: 0; }
+
+/* Kalender */
+.anf-kal-kopf { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s-1); }
+.anf-monat { font-size: var(--t-1); }
+.anf-pfeil { width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem; line-height: 1; display: grid; place-items: center; transition: background 0.2s; }
+.anf-pfeil:hover:not(:disabled) { background: var(--linie); }
+.anf-pfeil:disabled { opacity: 0.25; cursor: default; }
+.anf-raster { border-collapse: separate; border-spacing: 2px; width: 100%; table-layout: fixed; }
+.anf-raster th { font-size: var(--t--1); font-weight: 500; color: var(--gedaempft); padding-bottom: 4px; }
+.anf-raster td { height: var(--anf-zelle); text-align: center; border-radius: var(--radius); cursor: pointer; font-variant-numeric: tabular-nums; transition: background 0.18s, color 0.18s; user-select: none; }
+.anf-raster td:hover:not([aria-disabled]) { background: var(--linie); }
+.anf-raster td.heute { box-shadow: inset 0 0 0 1px var(--linie); }
+.anf-raster td[aria-disabled] { color: color-mix(in oklab, var(--fg) 28%, var(--bg)); cursor: default; text-decoration: line-through; text-decoration-color: color-mix(in oklab, var(--fg) 18%, transparent); }
+.anf-raster td.fremd, .anf-raster td.vorbei { cursor: default; text-decoration: none; }
+.anf-raster td.vorbei { color: color-mix(in oklab, var(--fg) 22%, var(--bg)); }
+.anf-raster td[aria-selected="true"], .anf-raster td[aria-selected="true"]:hover { background: var(--akzent); color: var(--auf-akzent); }
+.anf-raster td:focus-visible { outline: 2px solid var(--akzent); outline-offset: 1px; }
+
+/* Chips */
+.anf-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.anf-chip { min-height: 44px; padding: 0 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--linie); font-variant-numeric: tabular-nums; transition: background 0.18s, color 0.18s, box-shadow 0.18s; }
+.anf-chip:hover { box-shadow: inset 0 0 0 1px var(--fg); }
+.anf-chip[aria-checked="true"] { background: var(--fg); color: var(--bg); box-shadow: none; }
+
+/* Personen */
+.anf-personen { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.anf-rund { width: 48px; height: 48px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--linie); font-size: 1.4rem; line-height: 1; }
+.anf-rund:hover:not(:disabled) { box-shadow: inset 0 0 0 1px var(--fg); }
+.anf-rund:disabled { opacity: 0.3; cursor: default; }
+.anf-zahl { min-width: 7.5ch; text-align: center; font-size: var(--t-1); font-variant-numeric: tabular-nums; }
+.anf-schnell .anf-chip { min-height: 40px; padding: 0 14px; }
+
+/* Text */
+.anf-text { display: grid; gap: var(--s-3); }
+.anf-feld { display: grid; }
+.anf-feld input, .anf-feld textarea { width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid var(--linie); background: transparent; border-radius: 0; resize: vertical; transition: border-color 0.2s; }
+.anf-feld input:focus, .anf-feld textarea:focus { outline: none; border-bottom-color: var(--fg); }
+
+/* Abschluss */
+.anf-abschluss { display: grid; gap: var(--s-2); }
+.anf-zusammen { min-height: 1.5em; font-size: var(--t-1); }
+.anf-senden { justify-self: start; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--akzent); color: var(--auf-akzent); font-weight: 500; transition: transform 0.3s var(--ease), filter 0.2s; }
+.anf-senden:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.anf-fehler:empty { display: none; }
+.anf-fehler { color: #b3261e; }
+.anf-hinweis { font-size: var(--t--1); color: var(--gedaempft); }
